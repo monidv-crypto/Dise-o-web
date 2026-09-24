@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería & Repostería Web App</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (Cabin y Changa One) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Changa+One:ital@0;1&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wire-bg': '#F5EFE0',          /* Beige/Crema */
+                        'wire-card': '#FAF6EC',        /* Fondo de tarjetas */
+                        'wire-yellow': '#D99B00',      /* Dorado/Mostaza */
+                        'wire-yellow-hover': '#B88300',
+                        'wire-mint': '#80C4B7',        /* Verde menta suave */
+                        'wire-mint-dark': '#61A396',
+                        'wire-salmon': '#EFA392',      /* Salmón/Rosa */
+                        'wire-salmon-dark': '#D98977',
+                        'wire-gray': '#D1D5DB',        /* Gris placeholders */
+                        'wire-text': '#38312B'
+                    },
+                    fontFamily: {
+                        // Cabin para textos generales, botones y precios
+                        sans: ['Cabin', 'sans-serif'], 
+                        // Changa One para títulos y encabezados destacados
+                        display: ['Changa One', 'cursive'] 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F5EFE0;
+            color: #38312B;
+            font-family: 'Cabin', sans-serif; /* Fuente principal aplicada por defecto */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Ocultar scrollbar para los carruseles */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Transición suave para cambio de pestañas */
+        .tab-content { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Estilos Inputs Contacto */
+        .input-style {
+            background-color: rgba(239, 163, 146, 0.15); /* Salmón muy tenue */
+            border: 1px solid #EFA392;
+        }
+        .input-style:focus {
+            background-color: #FFFFFF;
+            outline: none;
+            border-color: #D99B00;
+            box-shadow: 0 0 0 2px rgba(217, 155, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen pt-28 pb-12">
+
+    <!-- HEADER FIJO -->
+    <header class="fixed top-0 w-full max-w-4xl mx-auto bg-wire-bg z-40 shadow-sm">
+        <div class="px-4 py-3 flex items-center justify-between border-b border-black/5">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-8 h-8 rounded-full bg-wire-yellow flex items-center justify-center text-white font-bold text-sm shadow-xs">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="font-display text-xl text-wire-text tracking-wide">Café & Repostería</span>
+            </div>
+            
+            <!-- Notificación Carrito -->
+            <button onclick="switchTab('compras')" class="relative p-2 text-wire-text hover:text-wire-yellow transition">
+                <i class="fa-solid fa-bag-shopping text-xl"></i>
+                <span id="cart-badge-count" class="absolute -top-1 -right-1 bg-wire-salmon text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-wire-bg">0</span>
+            </button>
+        </div>
+
+        <!-- NAVEGACIÓN PRINCIPAL SUPERIOR -->
+        <nav class="flex items-center justify-around h-12 bg-wire-card text-sm">
+            <button onclick="switchTab('home')" id="nav-home" class="nav-btn font-semibold text-gray-500 hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Home
+            </button>
+            <button onclick="switchTab('productos')" id="nav-productos" class="nav-btn font-semibold text-gray-500 hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Productos
+            </button>
+            <button onclick="switchTab('muro')" id="nav-muro" class="nav-btn font-semibold text-gray-500 hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Muro
+            </button>
+            <button onclick="switchTab('compras')" id="nav-compras" class="nav-btn font-semibold text-gray-500 hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Compras
+            </button>
+        </nav>
+    </header>
+
+    <main class="w-full max-w-4xl mx-auto px-4">
+
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: HOME (LANDING PAGE)                            -->
+        <!-- ======================================================= -->
+        <section id="tab-home" class="tab-content space-y-16 py-6">
+            
+            <!-- 1. SECCIÓN POSTRES -->
+            <div id="home-postres">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-display text-wire-text">Postres</h2>
+                    <button onclick="switchTab('productos', 'pasteles')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
+                </div>
+                <div id="carousel-postres" class="relative">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
+                        <!-- JS poblará esto -->
+                    </div>
+                    <!-- Flechas -->
+                    <button onclick="moveCarousel('carousel-postres', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <button onclick="moveCarousel('carousel-postres', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                    <!-- Dots -->
+                    <div id="dots-postres" class="flex justify-center gap-2 mt-2"></div>
+                </div>
+            </div>
+
+            <!-- 2. SECCIÓN BEBIDAS -->
+            <div id="home-bebidas">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-display text-wire-text">Bebidas</h2>
+                    <button onclick="switchTab('productos', 'bebidas-calientes')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
+                </div>
+                <div id="carousel-bebidas" class="relative">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
+                        <!-- JS poblará esto -->
+                    </div>
+                    <button onclick="moveCarousel('carousel-bebidas', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <button onclick="moveCarousel('carousel-bebidas', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                    <div id="dots-bebidas" class="flex justify-center gap-2 mt-2"></div>
+                </div>
+            </div>
+
+            <!-- 3. SECCIÓN MURO -->
+            <div id="home-muro">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-display text-wire-text">Muro</h2>
+                    <button onclick="switchTab('muro')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
+                </div>
+                <div id="carousel-muro" class="relative">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
+                        <!-- JS poblará esto -->
+                    </div>
+                    <button onclick="moveCarousel('carousel-muro', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <button onclick="moveCarousel('carousel-muro', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                    <div id="dots-muro" class="flex justify-center gap-2 mt-2"></div>
+                </div>
+            </div>
+
+            <!-- 4. SECCIÓN CONTACTO -->
+            <div id="home-contacto" class="bg-wire-mint/20 p-6 sm:p-10 rounded-3xl border border-wire-mint/30">
+                <h2 class="text-3xl font-display text-wire-text mb-6">Contacto</h2>
+                <form onsubmit="event.preventDefault(); showToast('Mensaje enviado con éxito. ¡Gracias por contactarnos!');" class="space-y-5 max-w-lg mx-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Nombre</label>
+                            <input type="text" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Teléfono</label>
+                            <input type="tel" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="+52 55 1234 5678">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Correo Electrónico</label>
+                        <input type="email" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Mensaje</label>
+                        <textarea rows="4" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition resize-none" placeholder="Escribe aquí tu mensaje, pedido especial o duda..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-wire-yellow hover:bg-wire-yellow-hover text-white font-bold py-3 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: PRODUCTOS                                      -->
+        <!-- ======================================================= -->
+        <section id="tab-productos" class="tab-content hidden space-y-8 py-6">
+            <h1 class="text-3xl font-display text-wire-text">Nuestros Productos</h1>
+            
+            <!-- Subcategorías -->
+            <div class="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
+                <button onclick="filterSubcategory('pasteles', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-yellow text-white rounded-full transition shadow-xs">Pasteles</button>
+                <button onclick="filterSubcategory('pays', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-white text-gray-600 rounded-full hover:bg-gray-100 transition">Pays</button>
+                <button onclick="filterSubcategory('bebidas-frias', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-white text-gray-600 rounded-full hover:bg-gray-100 transition">Bebidas Frías</button>
+                <button onclick="filterSubcategory('bebidas-calientes', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-white text-gray-600 rounded-full hover:bg-gray-100 transition">Bebidas Calientes</button>
+            </div>
+
+            <!-- Grilla de Productos -->
+            <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+                <!-- JS poblará esto -->
+            </div>
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: MURO (GALERÍA CLIENTES)                        -->
+        <!-- ======================================================= -->
+        <section id="tab-muro" class="tab-content hidden py-6">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-display text-wire-text">Muro de la Comunidad</h1>
+                <p class="text-gray-500 mt-1 text-sm">Las mejores momentos compartidos por nuestros clientes.</p>
+            </div>
+            <!-- Grilla tipo Masonry adaptativo -->
+            <div id="muro-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <!-- JS poblará esto -->
+            </div>
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: COMPRAS (CARRITO Y PERFIL)                     -->
+        <!-- ======================================================= -->
+        <section id="tab-compras" class="tab-content hidden space-y-10 py-6">
+            
+            <!-- Carrito -->
+            <div class="space-y-5">
+                <div class="flex items-center justify-between border-b border-black/10 pb-3">
+                    <h2 class="text-2xl font-display text-wire-text flex items-center gap-2">
+                        <i class="fa-solid fa-basket-shopping text-wire-yellow"></i> Tu Carrito
+                    </h2>
+                    <button onclick="clearCart()" class="text-xs text-red-500 font-semibold hover:underline">Vaciar Carrito</button>
+                </div>
+
+                <div id="cart-items-container" class="space-y-3"></div>
+
+                <div class="bg-white/80 p-5 rounded-2xl border border-black/5 flex items-center justify-between shadow-sm">
+                    <div>
+                        <span class="text-xs text-gray-500 uppercase font-bold tracking-wider">Total a Pagar</span>
+                        <div class="text-3xl font-display text-wire-text" id="cart-total-price">$0</div>
+                    </div>
+                    <button onclick="checkoutModal()" class="bg-wire-mint hover:bg-wire-mint-dark text-white font-bold px-6 py-3 rounded-full shadow-sm transition flex items-center gap-2">
+                        <span>Confirmar Pedido</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Perfil -->
+            <div class="pt-4 border-t border-black/10">
+                <h2 class="text-2xl font-display text-wire-text mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-user-gear text-wire-yellow"></i> Perfil de Usuario
+                </h2>
+
+                <div class="max-w-md mx-auto bg-wire-mint rounded-3xl p-6 shadow-md border-4 border-white space-y-4 text-center">
+                    <div class="w-20 h-20 mx-auto bg-wire-salmon rounded-xl border-2 border-white shadow-sm flex items-center justify-center text-white text-3xl">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div class="space-y-3 pt-2 text-left">
+                        <div>
+                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Nombre Completo</label>
+                            <input type="text" value="At vero eos" class="w-full bg-wire-salmon/30 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Teléfono</label>
+                            <input type="text" value="+52 55 1234 5678" class="w-full bg-wire-salmon/30 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Dirección</label>
+                            <input type="text" value="Av. Principal #45" class="w-full bg-wire-salmon/30 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-white transition">
+                        </div>
+                    </div>
+
+                    <button onclick="saveProfile()" class="w-full bg-wire-yellow hover:bg-wire-yellow-hover text-white font-bold py-2.5 rounded-xl shadow-sm transition mt-2">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Toast -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-wire-text text-white px-5 py-3 rounded-xl shadow-xl z-50 transition-all duration-300 opacity-0 pointer-events-none flex items-center gap-2 text-sm font-semibold">
+        <i class="fa-solid fa-circle-check text-wire-mint"></i>
+        <span id="toast-message">Mensaje</span>
+    </div>
+
+    <script>
+        // ============= BASE DE DATOS SIMULADA =============
+        const PRODUCTS = [
+            // Pasteles
+            { id: 1, name: "Pastel de Chocolate", category: "pasteles", price: 350, desc: "Bizcocho húmedo con ganache de chocolate oscuro.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60" },
+            { id: 2, name: "Pastel Tres Leches", category: "pasteles", price: 320, desc: "Clásico bañado en tres leches y crema vainilla.", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=60" },
+            { id: 3, name: "Pastel de Fresa", category: "pasteles", price: 380, desc: "Capas de vainilla con relleno de fresas frescas.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=60" },
+            { id: 4, name: "Pastel de Boda", category: "pasteles", price: 450, desc: "Elegante y multicolor para ocasiones especiales.", img: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=500&q=60" },
+            // Pays
+            { id: 5, name: "Pay de Limón", category: "pays", price: 150, desc: "Cremoso y ácido sobre base crujiente.", img: "https://images.unsplash.com/photo-1519915028121-7d3463d20b1d?auto=format&fit=crop&w=500&q=60" },
+            { id: 6, name: "Pay de Queso", category: "pays", price: 160, desc: "New York Cheesecake clásico.", img: "https://images.unsplash.com/photo-1533134242443-d4ed215f33d2?auto=format&fit=crop&w=500&q=60" },
+            { id: 7, name: "Pay de Nuez", category: "pays", price: 170, desc: "Tradicional relleno de nuez y caramelo.", img: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=500&q=60" },
+            { id: 8, name: "Pay de Manzana", category: "pays", price: 140, desc: "Tibio, con canela y manzanas caramelizadas.", img: "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60" },
+            // Bebidas Frías
+            { id: 9, name: "Frappé Caramelo", category: "bebidas-frias", price: 95, desc: "Bebida helada con crema batida y caramelo.", img: "https://images.unsplash.com/photo-1572286258217-215cf8e16567?auto=format&fit=crop&w=500&q=60" },
+            { id: 10, name: "Iced Latte", category: "bebidas-frias", price: 75, desc: "Espresso frío con leche y hielo.", img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500&q=60" },
+            { id: 11, name: "Frappé Mocha", category: "bebidas-frias", price: 100, desc: "Mezcla helada de café, chocolate y leche.", img: "https://images.unsplash.com/photo-1571219025102-7ed1d4e0a8d2?auto=format&fit=crop&w=500&q=60" },
+            { id: 12, name: "Limonada de Hierbas", category: "bebidas-frias", price: 60, desc: "Refrescante limonada con un toque de hierbabuena.", img: "https://images.unsplash.com/photo-1523677011789-4c16b0e3d8df?auto=format&fit=crop&w=500&q=60" },
+            // Bebidas Calientes
+            { id: 13, name: "Cappuccino", category: "bebidas-calientes", price: 70, desc: "Equilibrado espresso, leche y espuma.", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=60" },
+            { id: 14, name: "Latte Vainilla", category: "bebidas-calientes", price: 80, desc: "Suave espresso con leche vaporizada y vainilla.", img: "https://images.unsplash.com/photo-1561882468-9110e03e0f78?auto=format&fit=crop&w=500&q=60" },
+            { id: 15, name: "Chocolate Caliente", category: "bebidas-calientes", price: 85, desc: "Chocolate belga espumoso con malvaviscos.", img: "https://images.unsplash.com/photo-1542990253-0b8be3b0e4d3?auto=format&fit=crop&w=500&q=60" },
+            { id: 16, name: "Té Chai Latte", category: "bebidas-calientes", price: 75, desc: "Especias aromáticas con leche cremosa.", img: "https://images.unsplash.com/photo-1565452344518-47faca79dc69?auto=format&fit=crop&w=500&q=60" }
+        ];
+
+        let cart = [];
+        let currentSubcategory = 'pasteles';
+
+        // Imagen de respaldo por si Unsplash falla (mantiene los colores de la web)
+        const fallbackImg = "https://placehold.co/500x500/F5EFE0/D99B00?text=Producto";
+
+        // ============= MANEJO DE PESTAÑAS =============
+        function switchTab(tabName, subcat = null) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('border-wire-text', 'text-wire-text');
+                btn.classList.add('text-gray-500');
+            });
+
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabName}`).classList.add('border-wire-text', 'text-wire-text');
+            document.getElementById(`nav-${tabName}`).classList.remove('text-gray-500');
+
+            if (tabName === 'productos') {
+                if (subcat) currentSubcategory = subcat;
+                updateSubcatButtons();
+                renderProducts();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============= RENDERIZADO HOME =============
+        function renderCarousels() {
+            const postres = PRODUCTS.filter(p => p.category === 'pasteles' || p.category === 'pays');
+            const bebidas = PRODUCTS.filter(p => p.category === 'bebidas-frias' || p.category === 'bebidas-calientes');
+            const muroImages = [
+                "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1572286258217-215cf8e16567?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1571219025102-7ed1d4e0a8d2?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=60"
+            ];
+
+            renderCarouselItems('carousel-postres', postres, 'dots-postres', 'pasteles');
+            renderCarouselItems('carousel-bebidas', bebidas, 'dots-bebidas', 'bebidas-calientes');
+            renderMuroCarousel('carousel-muro', muroImages, 'dots-muro');
+            renderMuroGrid(muroImages.concat(muroImages)); // Duplicar para llenar grid
+        }
+
+        function renderCarouselItems(containerId, items, dotsId, subcatRedirect) {
+            const container = document.querySelector(`#${containerId} > div`);
+            const dotsContainer = document.getElementById(dotsId);
+            container.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "flex-shrink-0 w-[70%] sm:w-[45%] md:w-[31%] snap-start bg-wire-card rounded-2xl p-3 shadow-sm border border-black/5 flex flex-col transition hover:shadow-md";
+                card.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}" onerror="this.onerror=null;this.src='${fallbackImg}';" onclick="switchTab('productos', '${subcatRedirect}')" class="w-full aspect-square object-cover rounded-xl mb-3 cursor-pointer">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-wire-text text-base">${item.name}</h3>
+                        <p class="text-xs text-gray-500 leading-tight mt-1 mb-2">${item.desc}</p>
+                    </div>
+                    <div class="flex items-center justify-between gap-2 mt-2">
+                        <span class="font-bold text-wire-yellow text-lg">$${item.price}</span>
+                        <button onclick="addToCart(${item.id})" class="bg-wire-yellow hover:bg-wire-yellow-hover text-white text-xs font-bold py-2 px-4 rounded-full transition shadow-xs">
+                            Agregar
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                // Dots
+                const dot = document.createElement('button');
+                dot.className = "w-2 h-2 rounded-full bg-gray-300 transition-all";
+                if (index === 0) dot.classList.add('bg-wire-yellow', 'w-4');
+                dot.onclick = () => scrollToCarouselItem(container, index);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function renderMuroCarousel(containerId, images, dotsId) {
+            const container = document.querySelector(`#${containerId} > div`);
+            const dotsContainer = document.getElementById(dotsId);
+            container.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            images.forEach((imgSrc, index) => {
+                const card = document.createElement('div');
+                card.className = "flex-shrink-0 w-[80%] sm:w-[45%] md:w-[31%] snap-start relative rounded-2xl overflow-hidden shadow-sm group";
+                card.innerHTML = `
+                    <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full aspect-[4/3] object-cover" alt="Foto de cliente">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                        <p class="text-white text-sm font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-heart text-wire-salmon"></i> Me encanta este lugar
+                        </p>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                const dot = document.createElement('button');
+                dot.className = "w-2 h-2 rounded-full bg-gray-300 transition-all";
+                if (index === 0) dot.classList.add('bg-wire-yellow', 'w-4');
+                dot.onclick = () => scrollToCarouselItem(container, index);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function renderMuroGrid(images) {
+            const grid = document.getElementById('muro-grid');
+            grid.innerHTML = '';
+            images.forEach(imgSrc => {
+                const div = document.createElement('div');
+                div.className = "relative rounded-xl overflow-hidden shadow-sm group";
+                div.innerHTML = `
+                    <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover aspect-square" alt="Foto de cliente">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <i class="fa-solid fa-expand text-white text-xl"></i>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function moveCarousel(containerId, direction) {
+            const container = document.querySelector(`#${containerId} > div`);
+            const cardWidth = container.querySelector('div').offsetWidth + 20; // card + gap
+            container.scrollBy({ left: cardWidth * direction, behavior: 'smooth' });
+        }
+
+        function scrollToCarouselItem(container, index) {
+            const card = container.children[index];
+            container.scrollTo({ left: card.offsetLeft - container.offsetLeft - 16, behavior: 'smooth' });
+        }
+
+        // ============= RENDERIZADO PRODUCTOS =============
+        function filterSubcategory(subcat, btn) {
+            currentSubcategory = subcat;
+            updateSubcatButtons();
+            renderProducts();
+        }
+
+        function updateSubcatButtons() {
+            document.querySelectorAll('.subcat-btn').forEach(b => {
+                b.classList.remove('bg-wire-yellow', 'text-white');
+                b.classList.add('bg-white', 'text-gray-600');
+            });
+            const activeBtn = [...document.querySelectorAll('.subcat-btn')].find(b => b.textContent.toLowerCase().includes(currentSubcategory.replace('-', ' ')));
+            if(activeBtn) {
+                activeBtn.classList.add('bg-wire-yellow', 'text-white');
+                activeBtn.classList.remove('bg-white', 'text-gray-600');
+            }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            const filtered = PRODUCTS.filter(p => p.category === currentSubcategory);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8 font-medium">No hay productos disponibles.</p>`;
+                return;
+            }
+
+            filtered.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = "bg-wire-card rounded-2xl p-3 shadow-sm border border-black/5 flex flex-col transition hover:shadow-md";
+                card.innerHTML = `
+                    <div class="w-full aspect-square rounded-xl mb-3 border border-black/5 overflow-hidden">
+                        <img src="${prod.img}" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${prod.name}" class="w-full h-full object-cover hover:scale-105 transition">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-wire-text text-sm sm:text-base">${prod.name}</h3>
+                        <p class="text-[11px] text-gray-500 leading-tight mt-1 mb-2">${prod.desc}</p>
+                    </div>
+                    <div class="flex items-center justify-between gap-2 mt-2">
+                        <span class="font-bold text-wire-yellow text-base sm:text-lg">$${prod.price}</span>
+                        <button onclick="addToCart(${prod.id})" class="bg-wire-yellow hover:bg-wire-yellow-hover text-white text-xs font-bold py-2 px-3 rounded-full transition shadow-xs">
+                            Agregar
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ============= MANEJO CARRITO =============
+        function addToCart(prodId) {
+            const prod = PRODUCTS.find(p => p.id === prodId);
+            if (!prod) return;
+
+            const existing = cart.find(item => item.id === prodId);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1, img: prod.img });
+            }
+
+            showToast(`Añadido: ${prod.name}`);
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge-count');
+            const totalElem = document.getElementById('cart-total-price');
+
+            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+            badge.innerText = totalCount;
+
+            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            totalElem.innerText = `$${totalPrice.toLocaleString()}`;
+
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="bg-white/60 p-8 rounded-2xl text-center text-gray-500 font-medium border border-dashed border-gray-300">Tu carrito está vacío. ¡Agrega algunos deliciosos productos!</div>`;
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const itemRow = document.createElement('div');
+                itemRow.className = "bg-white rounded-2xl p-3 shadow-sm border border-black/5 flex items-center gap-4";
+                itemRow.innerHTML = `
+                    <div class="w-16 h-16 rounded-xl overflow-hidden border border-black/5 flex-shrink-0">
+                        <img src="${item.img}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover" alt="${item.name}">
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-base text-wire-text">${item.name}</h4>
+                        <span class="inline-block bg-wire-mint/20 text-wire-mint-dark text-xs font-bold px-2 py-0.5 rounded-full mt-1">
+                            $${item.price}
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center bg-wire-bg rounded-full px-2 py-1 border border-black/5">
+                            <button onclick="updateQty(${index}, -1)" class="w-6 h-6 rounded-full bg-gray-200 text-wire-text font-bold text-xs flex items-center justify-center hover:bg-gray-300">-</button>
+                            <span class="px-3 font-bold text-sm text-wire-text">${item.qty}</span>
+                            <button onclick="updateQty(${index}, 1)" class="w-6 h-6 rounded-full bg-wire-yellow text-white font-bold text-xs flex items-center justify-center hover:bg-wire-yellow-hover">+</button>
+                        </div>
+                        <button onclick="removeItem(${index})" class="text-red-400 hover:text-red-600 p-1">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(itemRow);
+            });
+        }
+
+        function updateQty(index, change) {
+            if (cart[index]) {
+                cart[index].qty += change;
+                if (cart[index].qty <= 0) cart.splice(index, 1);
+                renderCart();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            renderCart();
+            showToast('Carrito vaciado');
+        }
+
+        function checkoutModal() {
+            if (cart.length === 0) {
+                showToast('Tu carrito está vacío');
+                return;
+            }
+            showToast('¡Pedido realizado con éxito!');
+            cart = [];
+            renderCart();
+        }
+
+        // ============= UTILIDADES =============
+        function saveProfile() {
+            showToast('Perfil actualizado correctamente');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
+
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            }, 2500);
+        }
+
+        // ============= INICIALIZACIÓN =============
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCarousels();
+            renderProducts();
+            renderCart();
+        });
+    </script>
+</body>
+</html>
