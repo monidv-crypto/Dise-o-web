@@ -1,396 +1,710 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="512x512"
-			href="https://z-cdn.chatglm.cn/z-ai/static/logo.svg"
-		/>
-		<link rel="shortcut icon" href="https://z-cdn.chatglm.cn/z-ai/static/logo.svg" />
-		<link
-			rel="apple-touch-icon"
-			sizes="512x512"
-			href="https://z-cdn.chatglm.cn/z-ai/static/logo.svg"
-		/>
-		<meta
-			name="apple-mobile-web-app-title"
-			content="Z.ai - Advanced AI Chatbot & Agent powered by GLM-5.3-Flash"
-		/>
-		<meta
-			name="description"
-			content="Meet Z.ai, the AI assistant powered by GLM-5.3-Flash. Build websites, write code, handle long-horizon tasks, and get instant answers. Fast, smart, and reliable."
-		/>
-		<meta
-			name="keywords"
-			content="GLM-4.6, GLM 4.6, GLM-4.6-Air, GLM 4.6 Air, GLM 4.5, GLM4.5, GLM4.6, Deep Research, z ai, z.ai, GLM 4.5 AI, GLM 4.6 AI, GLM AI, Chat Z, zai, Chat AI, GLM, z.ia, Chat Z AI, AI chat, chatbot, z.ai chat, free ai chat, free AI, free ai chat no login, GLM-4.5, GLM-4.5 chat, GLM-4.1V, GLM-4.5V, AI assistant chat, AI PPT, AI presentation, AI presentation maker, AI slides maker, AI slides, slide deck, pitch deck, AI deck generator, free pitch deck generator, AI PPT, AI PPT maker, AI for Google Slides, AI for PowerPoint, AI writer, AI writing assistant, AI code generator, full stack code generation, AI full stack developer, claude code, Roo Code, Cline, Kilo Code, OpenCode, Codex, Cursor, GLM Coding Plan, GLM Coding, AI Coding, code writer ai, magic design, magic design tool, AI inspiration board, visual brainstorming AI, chat with AI, AI对话, AI聊天, 聊天机器人, 免费AI聊天, AI做PPT, AI写作, AI编程, 全栈开发, 灵感画板, AI tool, AI helper, AI for students, AI for marketers, AI for content creation, ChatGPT, chatgpt free, Free ChatGPT, gpt chat, Gemini, Grok, Claude, Poe AI, YouChat, Jasper AI, deepseek, qwen, 豆包, 文心一言, AI搜问答, 写作灵感AI, 代码解释工具, PPT思路生成, 如何用AI做PPT, create pitch deck from brief, AI business plan presentation, marketing report slides, AI academic paper assistant, AI legal contract drafting, write social media calendar, AI email responder,  VS Code AI assistant, AI for Notion, AI for Figma, AI math problem solver from image, AI geoguessr solver, image to code generator, table extractor from image, chart data extractor, document analysis AI, image caption generator, visual Q&A, 看图猜成语, AI拍照解题, 数学题解答, 物理题解答, GeoGuess AI, 图片转表格, 图片读数据, 看图问答, analyze video, summarize video content, generate video transcript, find object in image, what is in this picture, 视频分析, 视频内容摘要, 生成视频字幕, 图片里有什么, 识别图中物体, GLM-4.7, GLM 4.7, GLM4.7, skills, coding plan, GLM-5, GLM-5.0, GLM5, GLM 5, Pony, Pony Alpha, GLM-5.2, GLM 5.2, GLM5.2, long-horizon, long-running, ox alpha, Ox Alpha, Ox alpha, oxalpha, GLM-5.3-Flash, glm-5.3-flash, glm5.3flash, 5.3flash, 5.3 flash"
-		/>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería & Repostería Web App</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (Cabin y Changa One) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Changa+One:ital@0;1&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // Colores basados en variables CSS para soportar modo oscuro
+                        'wire-bg': 'rgb(var(--wire-bg-rgb) / <alpha-value>)',
+                        'wire-card': 'rgb(var(--wire-card-rgb) / <alpha-value>)',
+                        'wire-white': 'rgb(var(--wire-white-rgb) / <alpha-value>)',
+                        'wire-yellow': 'rgb(var(--wire-yellow-rgb) / <alpha-value>)',
+                        'wire-yellow-hover': 'rgb(var(--wire-yellow-hover-rgb) / <alpha-value>)',
+                        'wire-mint': 'rgb(var(--wire-mint-rgb) / <alpha-value>)',
+                        'wire-mint-dark': 'rgb(var(--wire-mint-dark-rgb) / <alpha-value>)',
+                        'wire-salmon': 'rgb(var(--wire-salmon-rgb) / <alpha-value>)',
+                        'wire-salmon-dark': 'rgb(var(--wire-salmon-dark-rgb) / <alpha-value>)',
+                        'wire-gray': 'rgb(var(--wire-gray-rgb) / <alpha-value>)',
+                        'wire-graytext': 'rgb(var(--wire-graytext-rgb) / <alpha-value>)',
+                        'wire-text': 'rgb(var(--wire-text-rgb) / <alpha-value>)'
+                    },
+                    fontFamily: {
+                        sans: ['Cabin', 'sans-serif'],
+                        display: ['Changa One', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
 
-		<!-- Google Tag Manager -->
-		<script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=IJrkZCjAmF3LLSSIix5xkFKysqTqJnafV68rPBfpbBcA1aBw5lELi_worxobBPAP0c6wa9C_SCksl1OCHkZz4e8dzFhzcL8uZ2yOm67oFKs" charset="UTF-8"></script><script>(function (w, d, s, l, i) {
-				w[l] = w[l] || []; w[l].push({
-					'gtm.start':
-						new Date().getTime(), event: 'gtm.js'
-				}); var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-						'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-			})(window, document, 'script', 'dataLayer', 'GTM-T9CBCLPX');
-		</script>
-		<!-- End Google Tag Manager -->
+    <style>
+        /* ============ MODO CLARO (por defecto) ============ */
+        :root {
+            color-scheme: light;
+            --wire-bg-rgb: 245 239 224;          /* #F5EFE0 Beige/Crema */
+            --wire-card-rgb: 250 246 236;        /* #FAF6EC Fondo de tarjetas */
+            --wire-white-rgb: 255 255 255;       /* #FFFFFF Superficies blancas */
+            --wire-yellow-rgb: 217 155 0;        /* #D99B00 Dorado/Mostaza */
+            --wire-yellow-hover-rgb: 184 131 0;  /* #B88300 */
+            --wire-mint-rgb: 128 196 183;        /* #80C4B7 Verde menta */
+            --wire-mint-dark-rgb: 97 163 150;    /* #61A396 */
+            --wire-salmon-rgb: 239 163 146;      /* #EFA392 Salmón */
+            --wire-salmon-dark-rgb: 217 137 119; /* #D98977 */
+            --wire-gray-rgb: 209 213 219;        /* #D1D5DB */
+            --wire-graytext-rgb: 107 114 128;    /* #6B7280 (texto secundario) */
+            --wire-text-rgb: 56 49 43;           /* #38312B */
+        }
 
-		<link rel="manifest" href="https://z-cdn.chatglm.cn/z-ai/frontend/static/manifest.json" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
-		/>
-		<meta name="theme-color" content="#F4F6F8" />
-		<meta name="referrer" content="no-referrer" />
-		<link
-			rel="search"
-			type="application/opensearchdescription+xml"
-			title="Z.ai - Advanced AI Chatbot & Agent powered by GLM-5.3-Flash"
-			href="https://z-cdn.chatglm.cn/z-ai/frontend/static/opensearch.xml"
-		/>
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-Z8QTHYBHP3"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
+        /* ============ MODO OSCURO ============ */
+        .dark {
+            color-scheme: dark;
+            --wire-bg-rgb: 42 33 24;             /* #2A2118 Café oscuro (fondo) */
+            --wire-card-rgb: 54 43 33;           /* #362B21 Café para tarjetas */
+            --wire-white-rgb: 69 56 41;          /* #453829 Café para superficies */
+            --wire-text-rgb: 245 239 224;        /* #F5EFE0 Beige (letras) */
+            --wire-graytext-rgb: 196 181 156;    /* #C4B59C Beige suave (texto secundario) */
+        }
 
-			gtag('config', 'G-Z8QTHYBHP3');
-		</script>
+        body {
+            background-color: rgb(var(--wire-bg-rgb));
+            color: rgb(var(--wire-text-rgb));
+            font-family: 'Cabin', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
 
-		<script>
-			let metrics = {};
-			const observer = new PerformanceObserver((list) => {
-				const entries = list.getEntries();
+        /* Ocultar scrollbar para los carruseles */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-				entries.forEach((entry) => {
-					// 根据不同的entry类型处理不同的性能指标
-					switch (entry.entryType) {
-						case 'navigation':
-							{
-								const navEntry = entry;
-								metrics = {
-									...metrics,
-									dns: navEntry.domainLookupEnd - navEntry.domainLookupStart,
-									response: navEntry.responseEnd - navEntry.responseStart,
-									dom_parse: navEntry.domInteractive - navEntry.responseEnd,
-									dom_ready: navEntry.domContentLoadedEventEnd - navEntry.fetchStart,
-									resource: navEntry.domComplete - navEntry.domContentLoadedEventEnd,
-									first_interactive: navEntry.domInteractive - navEntry.fetchStart,
-									first_byte: navEntry.responseStart - navEntry.domainLookupStart,
-									loaded: navEntry.loadEventEnd - navEntry.fetchStart
-								};
-								sessionStorage.setItem('performance', JSON.stringify(metrics));
-								// 发送性能指标到阿里云日志服务
-							}
-							break;
+        /* Transición suave para cambio de pestañas */
+        .tab-content { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-						case 'paint':
-							if (entry.name === 'first-paint') {
-								metrics = {
-									...metrics,
-									first_paint: entry.startTime
-								};
-								sessionStorage.setItem('performance', JSON.stringify(metrics));
-							}
-							if (entry.name === 'first-contentful-paint') {
-								metrics = {
-									...metrics,
-									first_contentful_paint: entry.startTime
-								};
-								sessionStorage.setItem('performance', JSON.stringify(metrics));
-							}
-							break;
-					}
-				});
-			});
+        /* Estilos Inputs Contacto */
+        .input-style {
+            background-color: rgba(239, 163, 146, 0.15); /* Salmón muy tenue */
+            border: 1px solid #EFA392;
+            color: rgb(var(--wire-text-rgb));
+        }
+        .input-style::placeholder {
+            color: rgb(var(--wire-graytext-rgb) / 0.75);
+            opacity: 1;
+        }
+        .input-style:focus {
+            background-color: rgb(var(--wire-white-rgb));
+            outline: none;
+            border-color: #D99B00;
+            box-shadow: 0 0 0 2px rgba(217, 155, 0, 0.2);
+        }
+    </style>
 
-			// 观察的性能指标类型
-			observer.observe({
-				entryTypes: ['navigation', 'paint']
-			});
-		</script>
+    <script>
+        // Aplica el tema guardado ANTES de pintar la página (evita parpadeo)
+        (function () {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+</head>
+<body class="min-h-screen pt-28 pb-12">
 
-		<script>
-			function resizeIframe(obj) {
-				obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
-			}
-		</script>
+    <!-- HEADER FIJO (centrado en la parte superior) -->
+    <header class="fixed top-0 left-0 right-0 w-full max-w-4xl mx-auto bg-wire-bg z-40 shadow-sm">
+        <div class="px-4 py-3 flex items-center justify-between border-b border-wire-text/10">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-8 h-8 rounded-full bg-wire-yellow flex items-center justify-center text-white font-bold text-sm shadow-xs">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="font-display text-xl text-wire-text tracking-wide">Café & Repostería</span>
+            </div>
+            
+            <div class="flex items-center gap-1">
+                <!-- Botón Modo Claro / Oscuro -->
+                <button onclick="toggleDarkMode()" id="theme-toggle" class="p-2 text-wire-text hover:text-wire-yellow transition" title="Cambiar modo claro/oscuro" aria-label="Cambiar modo claro/oscuro">
+                    <i class="fa-solid fa-moon text-xl"></i>
+                </button>
 
-		<script>
-			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-			const initTheme = () => {
-				const metaThemeColorTag = document.querySelector('meta[name="theme-color"]');
-				// 取用户浏览器设置的主题
-				// const prefersTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                <!-- Notificación Carrito -->
+                <button onclick="switchTab('compras')" class="relative p-2 text-wire-text hover:text-wire-yellow transition">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cart-badge-count" class="absolute -top-1 -right-1 bg-wire-salmon text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-wire-bg">0</span>
+                </button>
+            </div>
+        </div>
 
-				const prefersTheme = 'light';
+        <!-- NAVEGACIÓN PRINCIPAL SUPERIOR -->
+        <nav class="flex items-center justify-around h-12 bg-wire-card text-sm">
+            <button onclick="switchTab('home')" id="nav-home" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Home
+            </button>
+            <button onclick="switchTab('productos')" id="nav-productos" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Productos
+            </button>
+            <button onclick="switchTab('muro')" id="nav-muro" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Muro
+            </button>
+            <button onclick="switchTab('compras')" id="nav-compras" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
+                Compras
+            </button>
+        </nav>
+    </header>
 
-				if (!localStorage?.theme) {
-					localStorage.theme = prefersTheme;
-				}
+    <main class="w-full max-w-4xl mx-auto px-4">
 
-				if (localStorage.theme === 'system') {
-					document.documentElement.classList.add(prefersTheme);
-					metaThemeColorTag.setAttribute(
-						'content',
-						prefersTheme === 'light' ? '#F4F6F8' : '#141618'
-					);
-				} else if (localStorage.theme === 'light') {
-					document.documentElement.classList.add('light');
-					metaThemeColorTag.setAttribute('content', '#F4F6F8');
-				} else {
-					document.documentElement.classList.add('dark');
-					metaThemeColorTag.setAttribute('content', '#141618');
-				}
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: HOME (LANDING PAGE)                            -->
+        <!-- ======================================================= -->
+        <section id="tab-home" class="tab-content space-y-16 py-6">
+            
+            <!-- 1. SECCIÓN POSTRES -->
+            <div id="home-postres">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-display text-wire-text">Postres</h2>
+                    <button onclick="switchTab('productos', 'pasteles')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
+                </div>
+                <div id="carousel-postres" class="relative">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
+                        <!-- JS poblará esto -->
+                    </div>
+                    <!-- Flechas -->
+                    <button onclick="moveCarousel('carousel-postres', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <button onclick="moveCarousel('carousel-postres', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                    <!-- Dots -->
+                    <div id="dots-postres" class="flex justify-center gap-2 mt-2"></div>
+                </div>
+            </div>
 
-				// window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
-				// 	if (localStorage.theme === 'system') {
-				// 		if (e.matches) {
-				// 			document.documentElement.classList.add('dark');
-				// 			document.documentElement.classList.remove('light');
-				// 			metaThemeColorTag.setAttribute('content', '#141618');
-				// 		} else {
-				// 			document.documentElement.classList.add('light');
-				// 			document.documentElement.classList.remove('dark');
-				// 			metaThemeColorTag.setAttribute('content', '#F4F6F8');
-				// 		}
-				// 	}
-				// });
-			};
-			initTheme();
-		</script>
+            <!-- 2. SECCIÓN BEBIDAS -->
+            <div id="home-bebidas">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-display text-wire-text">Bebidas</h2>
+                    <button onclick="switchTab('productos', 'bebidas-calientes')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
+                </div>
+                <div id="carousel-bebidas" class="relative">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
+                        <!-- JS poblará esto -->
+                    </div>
+                    <button onclick="moveCarousel('carousel-bebidas', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <button onclick="moveCarousel('carousel-bebidas', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                    <div id="dots-bebidas" class="flex justify-center gap-2 mt-2"></div>
+                </div>
+            </div>
 
-		<title>Z.ai - Advanced AI Chatbot & Agent powered by GLM-5.3-Flash</title>
+            <!-- 3. SECCIÓN MURO -->
+            <div id="home-muro">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-display text-wire-text">Muro</h2>
+                    <button onclick="switchTab('muro')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
+                </div>
+                <div id="carousel-muro" class="relative">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
+                        <!-- JS poblará esto -->
+                    </div>
+                    <button onclick="moveCarousel('carousel-muro', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-left text-sm"></i>
+                    </button>
+                    <button onclick="moveCarousel('carousel-muro', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                        <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                    <div id="dots-muro" class="flex justify-center gap-2 mt-2"></div>
+                </div>
+            </div>
 
-		<script>
-			// 炫酷的控制台介绍 - 根据语言显示
-			(function () {
-				// 检测用户语言偏好
-				const userLang = navigator.language || navigator.userLanguage;
-				const isChinese =
-					userLang.startsWith('zh') ||
-					userLang.includes('CN') ||
-					userLang.includes('TW') ||
-					userLang.includes('HK');
+            <!-- 4. SECCIÓN CONTACTO -->
+            <div id="home-contacto" class="bg-wire-mint/20 p-6 sm:p-10 rounded-3xl border border-wire-mint/30">
+                <h2 class="text-3xl font-display text-wire-text mb-6">Contacto</h2>
+                <form onsubmit="event.preventDefault(); showToast('Mensaje enviado con éxito. ¡Gracias por contactarnos!');" class="space-y-5 max-w-lg mx-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Nombre</label>
+                            <input type="text" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Teléfono</label>
+                            <input type="tel" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="+52 55 1234 5678">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Correo Electrónico</label>
+                        <input type="email" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Mensaje</label>
+                        <textarea rows="4" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition resize-none" placeholder="Escribe aquí tu mensaje, pedido especial o duda..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-wire-yellow hover:bg-wire-yellow-hover text-white font-bold py-3 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar Mensaje
+                    </button>
+                </form>
+            </div>
 
-				// 共同的 ASCII Logo
-				const logoLines = [
-					'%c███████╗     █████╗ ██╗',
-					'%c╚══███╔╝    ██╔══██╗██║',
-					'%c  ███╔╝     ███████║██║',
-					'%c ███╔╝      ██╔══██║██║',
-					'%c███████╗ ██╗██║  ██║██║',
-					'%c╚══════╝ ╚═╝╚═╝  ╚═╝╚═╝'
-				];
-				const logoColors = [
-					'color: #ff6b6b; font-family: monospace; font-size: 12px;',
-					'color: #4ecdc4; font-family: monospace; font-size: 12px;',
-					'color: #45b7d1; font-family: monospace; font-size: 12px;',
-					'color: #f9ca24; font-family: monospace; font-size: 12px;',
-					'color: #ff9ff3; font-family: monospace; font-size: 12px;',
-					'color: #6c5ce7; font-family: monospace; font-size: 12px;'
-				];
+        </section>
 
-				if (isChinese) {
-					// 中文版本
-					console.log(
-						'%c🚀 欢迎来到 Z.ai 🚀',
-						'color: #00d4ff; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;'
-					);
-					logoLines.forEach((line, index) => console.log(line, logoColors[index]));
-					console.log('');
-					console.log(
-						'%c✨ 基于开源GLM模型的智能AI助手',
-						'color: #a29bfe; font-size: 14px; font-weight: bold;'
-					);
-					console.log('%c🧠 支持文本生成、推理和深度研究', 'color: #fd79a8; font-size: 12px;');
-					console.log('%c🌍 为中英文用户量身定制', 'color: #00b894; font-size: 12px;');
-					console.log('%c💡 免费开源的ChatGPT替代方案', 'color: #fdcb6e; font-size: 12px;');
-					console.log('');
-					console.log('%c---', 'color: #ddd;');
-					console.log(
-						'%c由 ❤️ 和大量 ☕ 驱动',
-						'color: #e84393; font-size: 11px; font-style: italic;'
-					);
-					console.log('');
-					console.log(
-						'%c🚀 加入我们！我们正在招聘优秀人才！',
-						'color: #00b894; font-size: 13px; font-weight: bold;'
-					);
-					console.log(
-						'%c💼 查看职位: https://zhipu-ai.jobs.feishu.cn/s/stmyTm5lxaU',
-						'color: #0984e3; font-size: 12px; text-decoration: underline;'
-					);
-				} else {
-					// 英文版本
-					console.log(
-						'%c🚀 Welcome to Z.ai 🚀',
-						'color: #00d4ff; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;'
-					);
-					logoLines.forEach((line, index) => console.log(line, logoColors[index]));
-					console.log('');
-					console.log(
-						'%c✨ Advanced AI assistant powered by open-source GLM models',
-						'color: #a29bfe; font-size: 14px; font-weight: bold;'
-					);
-					console.log(
-						'%c🧠 Supports text generation, reasoning, and deep research',
-						'color: #fd79a8; font-size: 12px;'
-					);
-					console.log(
-						'%c🌍 Tailored for both English and Chinese users',
-						'color: #00b894; font-size: 12px;'
-					);
-					console.log(
-						'%c💡 Free and open-source ChatGPT alternative',
-						'color: #fdcb6e; font-size: 12px;'
-					);
-					console.log('');
-					console.log('%c---', 'color: #ddd;');
-					console.log(
-						'%cPowered by ❤️ and lots of ☕',
-						'color: #e84393; font-size: 11px; font-style: italic;'
-					);
-					console.log('');
-					console.log(
-						'%c🚀 Join us! We are hiring talented people!',
-						'color: #00b894; font-size: 13px; font-weight: bold;'
-					);
-					console.log(
-						'%c💼 View jobs: https://zhipu-ai.jobs.feishu.cn/s/stmyTm5lxaU',
-						'color: #0984e3; font-size: 12px; text-decoration: underline;'
-					);
-				}
-			})();
-		</script>
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: PRODUCTOS                                      -->
+        <!-- ======================================================= -->
+        <section id="tab-productos" class="tab-content hidden space-y-8 py-6">
+            <h1 class="text-3xl font-display text-wire-text">Nuestros Productos</h1>
+            
+            <!-- Subcategorías -->
+            <div class="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
+                <button onclick="filterSubcategory('pasteles', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-yellow text-white rounded-full transition shadow-xs">Pasteles</button>
+                <button onclick="filterSubcategory('pays', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Pays</button>
+                <button onclick="filterSubcategory('bebidas-frias', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Bebidas Frías</button>
+                <button onclick="filterSubcategory('bebidas-calientes', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Bebidas Calientes</button>
+            </div>
 
-		<script type="module" crossorigin src="https://z-cdn.chatglm.cn/z-ai/frontend/prod-fe-1.1.98/assets/index-BEIsjDOv.js"></script>
-		<link rel="stylesheet" crossorigin href="https://z-cdn.chatglm.cn/z-ai/frontend/prod-fe-1.1.98/assets/index-CqXvxGON.css">
-	</head>
+            <!-- Grilla de Productos -->
+            <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+                <!-- JS poblará esto -->
+            </div>
+        </section>
 
-	<body>
-		<!-- Google Tag Manager (noscript) -->
-		<noscript>
-			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9CBCLPX" height="0" width="0"
-				style="display:none;visibility:hidden">
-			</iframe>
-		</noscript>
-		<!-- End Google Tag Manager (noscript) -->
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: MURO (GALERÍA CLIENTES)                        -->
+        <!-- ======================================================= -->
+        <section id="tab-muro" class="tab-content hidden py-6">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-display text-wire-text">Muro de la Comunidad</h1>
+                <p class="text-wire-graytext mt-1 text-sm">Las mejores momentos compartidos por nuestros clientes.</p>
+            </div>
+            <!-- Grilla tipo Masonry adaptativo -->
+            <div id="muro-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <!-- JS poblará esto -->
+            </div>
+        </section>
 
-		<script>
-			const env = location.hostname === 'chat.z.ai' ? 'prod' : 'pre';
-			!(function (c, b, d, a) {
-				c[a] || (c[a] = {});
-				c[a] = {
-					pid: 'j2c03hoppk@9a8be198b65ba4b',
-					endpoint: 'https://j2c03hoppk-default-cn.rum.aliyuncs.com',
-					// 设置环境信息，参考值：'prod' | 'gray' | 'pre' | 'daily' | 'local'
-					env: env,
-					// 设置路由模式， 参考值：'history' | 'hash'
-					spaMode: 'history',
-					collectors: {
-						// 页面性能指标监听开关，默认开启
-						perf: true,
-						// WebVitals指标监听开关，默认开启
-						webVitals: false,
-						// Ajax监听开关，默认开启
-						api: true,
-						// 静态资源开关，默认开启
-						staticResource: true,
-						// JS错误监听开关，默认开启
-						jsError: true,
-						// 控制台错误监听开关，默认开启
-						consoleError: false,
-						// 用户行为监听开关，默认开启
-						action: true
-					},
-					// 链路追踪配置开关，默认关闭
-					tracing: false,
-					parseViewName(url) {
-						const pathname = new URL(url).pathname;
-						if (!pathname) {
-							return '/';
-						}
-						return pathname.replace(/(.*)\/[a-f0-9-]+$/g, '$1');
-					},
-					evaluateApi(options, response) {
-						const traceId = response?.headers?.get?.('X-Trace-Id') || 'unknown';
+        <!-- ======================================================= -->
+        <!-- PESTAÑA: COMPRAS (CARRITO Y PERFIL)                     -->
+        <!-- ======================================================= -->
+        <section id="tab-compras" class="tab-content hidden space-y-10 py-6">
+            
+            <!-- Carrito -->
+            <div class="space-y-5">
+                <div class="flex items-center justify-between border-b border-wire-text/15 pb-3">
+                    <h2 class="text-2xl font-display text-wire-text flex items-center gap-2">
+                        <i class="fa-solid fa-basket-shopping text-wire-yellow"></i> Tu Carrito
+                    </h2>
+                    <button onclick="clearCart()" class="text-xs text-red-500 font-semibold hover:underline">Vaciar Carrito</button>
+                </div>
 
-						return {
-							name: options.url.replace(/\/[a-f0-9-]{36}/g, '/**'),
-							properties: {
-								traceId
-							}
-						};
-					}
-				};
-				with (b)
-					with (body)
-						with (insertBefore(createElement('script'), firstChild))
-							setAttribute('crossorigin', '', (src = d));
-			})(window, document, 'https://sdk.rum.aliyuncs.com/v2/browser-sdk.js', '__rum');
-		</script>
-		<div id="app" style="display: contents"></div>
+                <div id="cart-items-container" class="space-y-3"></div>
 
-		<script>
-			var token = localStorage.getItem('token');
-			var base = window.WEBUI_BASE_URL || '';
-			var lang = localStorage.locale ?? (navigator.language.includes('zh') ? 'zh-CN' : 'en-US');
-			var config = {
-				credentials: 'include',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-					...(token ? { Authorization: `Bearer ${token}` } : {}),
-					'Accept-Language': lang
-				}
-			};
+                <div class="bg-wire-white/80 p-5 rounded-2xl border border-wire-text/10 flex items-center justify-between shadow-sm">
+                    <div>
+                        <span class="text-xs text-wire-graytext uppercase font-bold tracking-wider">Total a Pagar</span>
+                        <div class="text-3xl font-display text-wire-text" id="cart-total-price">$0</div>
+                    </div>
+                    <button onclick="checkoutModal()" class="bg-wire-mint hover:bg-wire-mint-dark text-white font-bold px-6 py-3 rounded-full shadow-sm transition flex items-center gap-2">
+                        <span>Confirmar Pedido</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
 
-			var sessionFetch = fetch(`${base}/api/v1/auths/`, config).then(async (res) => {
-				if (!res.ok) throw await res.json();
-				return res.json();
-			});
+            <!-- Perfil -->
+            <div class="pt-4 border-t border-wire-text/15">
+                <h2 class="text-2xl font-display text-wire-text mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-user-gear text-wire-yellow"></i> Perfil de Usuario
+                </h2>
 
-			window.GLOBAL_FETCHES = {
-				session: sessionFetch,
-				config: fetch(`${base}/api/config`, config).then(async (res) => {
-					if (!res.ok) throw await res.json();
-					return res.json();
-				}),
-				// token 存在时与其他请求并行；不存在时需等 session 之后再请求 models
-				// 至少要 cookie 里有 token 才能正常请求 models
-				models: token
-					? fetch(`${base}/api/models`, config)
-					: sessionFetch.then(() => fetch(`${base}/api/models`, config)),
-				settings:
-					token &&
-					fetch(`${base}/api/v1/users/user/settings`, config).then(async (res) => {
-						if (!res.ok) throw await res.json();
-						return res.json();
-					})
-			};
-		</script>
-		<script async src="//o.alicdn.com/frontend-lib/common-lib/jquery.min.js"></script>
-	</body>
+                <div class="max-w-md mx-auto bg-wire-mint rounded-3xl p-6 shadow-md border-4 border-white space-y-4 text-center">
+                    <div class="w-20 h-20 mx-auto bg-wire-salmon rounded-xl border-2 border-white shadow-sm flex items-center justify-center text-white text-3xl">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <div class="space-y-3 pt-2 text-left">
+                        <div>
+                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Nombre Completo</label>
+                            <input type="text" value="At vero eos" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Teléfono</label>
+                            <input type="text" value="+52 55 1234 5678" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Dirección</label>
+                            <input type="text" value="Av. Principal #45" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
+                        </div>
+                    </div>
+
+                    <button onclick="saveProfile()" class="w-full bg-wire-yellow hover:bg-wire-yellow-hover text-white font-bold py-2.5 rounded-xl shadow-sm transition mt-2">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Toast -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-wire-text text-wire-bg px-5 py-3 rounded-xl shadow-xl z-50 transition-all duration-300 opacity-0 pointer-events-none flex items-center gap-2 text-sm font-semibold">
+        <i class="fa-solid fa-circle-check text-wire-mint"></i>
+        <span id="toast-message">Mensaje</span>
+    </div>
+
+    <script>
+        // ============= BASE DE DATOS SIMULADA =============
+        const PRODUCTS = [
+            // Pasteles
+            { id: 1, name: "Pastel de Chocolate", category: "pasteles", price: 350, desc: "Bizcocho húmedo con ganache de chocolate oscuro.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60" },
+            { id: 2, name: "Pastel Tres Leches", category: "pasteles", price: 320, desc: "Clásico bañado en tres leches y crema vainilla.", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=60" },
+            { id: 3, name: "Pastel de Fresa", category: "pasteles", price: 380, desc: "Capas de vainilla con relleno de fresas frescas.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=60" },
+            { id: 4, name: "Pastel de Boda", category: "pasteles", price: 450, desc: "Elegante y multicolor para ocasiones especiales.", img: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=500&q=60" },
+            // Pays
+            { id: 5, name: "Pay de Limón", category: "pays", price: 150, desc: "Cremoso y ácido sobre base crujiente.", img: "https://images.unsplash.com/photo-1519915028121-7d3463d20b1d?auto=format&fit=crop&w=500&q=60" },
+            { id: 6, name: "Pay de Queso", category: "pays", price: 160, desc: "New York Cheesecake clásico.", img: "https://images.unsplash.com/photo-1533134242443-d4ed215f33d2?auto=format&fit=crop&w=500&q=60" },
+            { id: 7, name: "Pay de Nuez", category: "pays", price: 170, desc: "Tradicional relleno de nuez y caramelo.", img: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=500&q=60" },
+            { id: 8, name: "Pay de Manzana", category: "pays", price: 140, desc: "Tibio, con canela y manzanas caramelizadas.", img: "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60" },
+            // Bebidas Frías
+            { id: 9, name: "Frappé Caramelo", category: "bebidas-frias", price: 95, desc: "Bebida helada con crema batida y caramelo.", img: "https://images.unsplash.com/photo-1572286258217-215cf8e16567?auto=format&fit=crop&w=500&q=60" },
+            { id: 10, name: "Iced Latte", category: "bebidas-frias", price: 75, desc: "Espresso frío con leche y hielo.", img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500&q=60" },
+            { id: 11, name: "Frappé Mocha", category: "bebidas-frias", price: 100, desc: "Mezcla helada de café, chocolate y leche.", img: "https://images.unsplash.com/photo-1571219025102-7ed1d4e0a8d2?auto=format&fit=crop&w=500&q=60" },
+            { id: 12, name: "Limonada de Hierbas", category: "bebidas-frias", price: 60, desc: "Refrescante limonada con un toque de hierbabuena.", img: "https://images.unsplash.com/photo-1523677011789-4c16b0e3d8df?auto=format&fit=crop&w=500&q=60" },
+            // Bebidas Calientes
+            { id: 13, name: "Cappuccino", category: "bebidas-calientes", price: 70, desc: "Equilibrado espresso, leche y espuma.", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=60" },
+            { id: 14, name: "Latte Vainilla", category: "bebidas-calientes", price: 80, desc: "Suave espresso con leche vaporizada y vainilla.", img: "https://images.unsplash.com/photo-1561882468-9110e03e0f78?auto=format&fit=crop&w=500&q=60" },
+            { id: 15, name: "Chocolate Caliente", category: "bebidas-calientes", price: 85, desc: "Chocolate belga espumoso con malvaviscos.", img: "https://images.unsplash.com/photo-1542990253-0b8be3b0e4d3?auto=format&fit=crop&w=500&q=60" },
+            { id: 16, name: "Té Chai Latte", category: "bebidas-calientes", price: 75, desc: "Especias aromáticas con leche cremosa.", img: "https://images.unsplash.com/photo-1565452344518-47faca79dc69?auto=format&fit=crop&w=500&q=60" }
+        ];
+
+        let cart = [];
+        let currentSubcategory = 'pasteles';
+
+        // Imagen de respaldo por si Unsplash falla (mantiene los colores de la web)
+        const fallbackImg = "https://placehold.co/500x500/F5EFE0/D99B00?text=Producto";
+
+        // ============= MODO CLARO / OSCURO =============
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const icon = document.querySelector('#theme-toggle i');
+            if (icon) {
+                const isDark = document.documentElement.classList.contains('dark');
+                icon.classList.remove('fa-moon', 'fa-sun');
+                icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+            }
+        }
+
+        // ============= MANEJO DE PESTAÑAS =============
+        function switchTab(tabName, subcat = null) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('border-wire-text', 'text-wire-text');
+                btn.classList.add('text-wire-graytext');
+            });
+
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabName}`).classList.add('border-wire-text', 'text-wire-text');
+            document.getElementById(`nav-${tabName}`).classList.remove('text-wire-graytext');
+
+            if (tabName === 'productos') {
+                if (subcat) currentSubcategory = subcat;
+                updateSubcatButtons();
+                renderProducts();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============= RENDERIZADO HOME =============
+        function renderCarousels() {
+            const postres = PRODUCTS.filter(p => p.category === 'pasteles' || p.category === 'pays');
+            const bebidas = PRODUCTS.filter(p => p.category === 'bebidas-frias' || p.category === 'bebidas-calientes');
+            const muroImages = [
+                "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1572286258217-215cf8e16567?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1571219025102-7ed1d4e0a8d2?auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=60"
+            ];
+
+            renderCarouselItems('carousel-postres', postres, 'dots-postres', 'pasteles');
+            renderCarouselItems('carousel-bebidas', bebidas, 'dots-bebidas', 'bebidas-calientes');
+            renderMuroCarousel('carousel-muro', muroImages, 'dots-muro');
+            renderMuroGrid(muroImages.concat(muroImages)); // Duplicar para llenar grid
+        }
+
+        function renderCarouselItems(containerId, items, dotsId, subcatRedirect) {
+            const container = document.querySelector(`#${containerId} > div`);
+            const dotsContainer = document.getElementById(dotsId);
+            container.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "flex-shrink-0 w-[70%] sm:w-[45%] md:w-[31%] snap-start bg-wire-card rounded-2xl p-3 shadow-sm border border-wire-text/10 flex flex-col transition hover:shadow-md";
+                card.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}" onerror="this.onerror=null;this.src='${fallbackImg}';" onclick="switchTab('productos', '${subcatRedirect}')" class="w-full aspect-square object-cover rounded-xl mb-3 cursor-pointer">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-wire-text text-base">${item.name}</h3>
+                        <p class="text-xs text-wire-graytext leading-tight mt-1 mb-2">${item.desc}</p>
+                    </div>
+                    <div class="flex items-center justify-between gap-2 mt-2">
+                        <span class="font-bold text-wire-yellow text-lg">$${item.price}</span>
+                        <button onclick="addToCart(${item.id})" class="bg-wire-yellow hover:bg-wire-yellow-hover text-white text-xs font-bold py-2 px-4 rounded-full transition shadow-xs">
+                            Agregar
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                // Dots
+                const dot = document.createElement('button');
+                dot.className = "w-2 h-2 rounded-full bg-wire-text/30 transition-all";
+                if (index === 0) dot.classList.add('bg-wire-yellow', 'w-4');
+                dot.onclick = () => scrollToCarouselItem(container, index);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function renderMuroCarousel(containerId, images, dotsId) {
+            const container = document.querySelector(`#${containerId} > div`);
+            const dotsContainer = document.getElementById(dotsId);
+            container.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            images.forEach((imgSrc, index) => {
+                const card = document.createElement('div');
+                card.className = "flex-shrink-0 w-[80%] sm:w-[45%] md:w-[31%] snap-start relative rounded-2xl overflow-hidden shadow-sm group";
+                card.innerHTML = `
+                    <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full aspect-[4/3] object-cover" alt="Foto de cliente">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                        <p class="text-white text-sm font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-heart text-wire-salmon"></i> Me encanta este lugar
+                        </p>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                const dot = document.createElement('button');
+                dot.className = "w-2 h-2 rounded-full bg-wire-text/30 transition-all";
+                if (index === 0) dot.classList.add('bg-wire-yellow', 'w-4');
+                dot.onclick = () => scrollToCarouselItem(container, index);
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function renderMuroGrid(images) {
+            const grid = document.getElementById('muro-grid');
+            grid.innerHTML = '';
+            images.forEach(imgSrc => {
+                const div = document.createElement('div');
+                div.className = "relative rounded-xl overflow-hidden shadow-sm group";
+                div.innerHTML = `
+                    <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover aspect-square" alt="Foto de cliente">
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <i class="fa-solid fa-expand text-white text-xl"></i>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function moveCarousel(containerId, direction) {
+            const container = document.querySelector(`#${containerId} > div`);
+            const cardWidth = container.querySelector('div').offsetWidth + 20; // card + gap
+            container.scrollBy({ left: cardWidth * direction, behavior: 'smooth' });
+        }
+
+        function scrollToCarouselItem(container, index) {
+            const card = container.children[index];
+            container.scrollTo({ left: card.offsetLeft - container.offsetLeft - 16, behavior: 'smooth' });
+        }
+
+        // ============= RENDERIZADO PRODUCTOS =============
+        function filterSubcategory(subcat, btn) {
+            currentSubcategory = subcat;
+            updateSubcatButtons();
+            renderProducts();
+        }
+
+        function updateSubcatButtons() {
+            document.querySelectorAll('.subcat-btn').forEach(b => {
+                b.classList.remove('bg-wire-yellow', 'text-white');
+                b.classList.add('bg-wire-white', 'text-wire-graytext');
+            });
+            const activeBtn = [...document.querySelectorAll('.subcat-btn')].find(b => b.textContent.toLowerCase().includes(currentSubcategory.replace('-', ' ')));
+            if(activeBtn) {
+                activeBtn.classList.add('bg-wire-yellow', 'text-white');
+                activeBtn.classList.remove('bg-wire-white', 'text-wire-graytext');
+            }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            const filtered = PRODUCTS.filter(p => p.category === currentSubcategory);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-wire-graytext py-8 font-medium">No hay productos disponibles.</p>`;
+                return;
+            }
+
+            filtered.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = "bg-wire-card rounded-2xl p-3 shadow-sm border border-wire-text/10 flex flex-col transition hover:shadow-md";
+                card.innerHTML = `
+                    <div class="w-full aspect-square rounded-xl mb-3 border border-wire-text/10 overflow-hidden">
+                        <img src="${prod.img}" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${prod.name}" class="w-full h-full object-cover hover:scale-105 transition">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-wire-text text-sm sm:text-base">${prod.name}</h3>
+                        <p class="text-[11px] text-wire-graytext leading-tight mt-1 mb-2">${prod.desc}</p>
+                    </div>
+                    <div class="flex items-center justify-between gap-2 mt-2">
+                        <span class="font-bold text-wire-yellow text-base sm:text-lg">$${prod.price}</span>
+                        <button onclick="addToCart(${prod.id})" class="bg-wire-yellow hover:bg-wire-yellow-hover text-white text-xs font-bold py-2 px-3 rounded-full transition shadow-xs">
+                            Agregar
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ============= MANEJO CARRITO =============
+        function addToCart(prodId) {
+            const prod = PRODUCTS.find(p => p.id === prodId);
+            if (!prod) return;
+
+            const existing = cart.find(item => item.id === prodId);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1, img: prod.img });
+            }
+
+            showToast(`Añadido: ${prod.name}`);
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge-count');
+            const totalElem = document.getElementById('cart-total-price');
+
+            const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+            badge.innerText = totalCount;
+
+            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            totalElem.innerText = `$${totalPrice.toLocaleString()}`;
+
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="bg-wire-white/60 p-8 rounded-2xl text-center text-wire-graytext font-medium border border-dashed border-wire-text/25">Tu carrito está vacío. ¡Agrega algunos deliciosos productos!</div>`;
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const itemRow = document.createElement('div');
+                itemRow.className = "bg-wire-white rounded-2xl p-3 shadow-sm border border-wire-text/10 flex items-center gap-4";
+                itemRow.innerHTML = `
+                    <div class="w-16 h-16 rounded-xl overflow-hidden border border-wire-text/10 flex-shrink-0">
+                        <img src="${item.img}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover" alt="${item.name}">
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-base text-wire-text">${item.name}</h4>
+                        <span class="inline-block bg-wire-mint/20 text-wire-mint-dark text-xs font-bold px-2 py-0.5 rounded-full mt-1">
+                            $${item.price}
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center bg-wire-bg rounded-full px-2 py-1 border border-wire-text/10">
+                            <button onclick="updateQty(${index}, -1)" class="w-6 h-6 rounded-full bg-wire-text/10 text-wire-text font-bold text-xs flex items-center justify-center hover:bg-wire-text/20">-</button>
+                            <span class="px-3 font-bold text-sm text-wire-text">${item.qty}</span>
+                            <button onclick="updateQty(${index}, 1)" class="w-6 h-6 rounded-full bg-wire-yellow text-white font-bold text-xs flex items-center justify-center hover:bg-wire-yellow-hover">+</button>
+                        </div>
+                        <button onclick="removeItem(${index})" class="text-red-400 hover:text-red-600 p-1">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(itemRow);
+            });
+        }
+
+        function updateQty(index, change) {
+            if (cart[index]) {
+                cart[index].qty += change;
+                if (cart[index].qty <= 0) cart.splice(index, 1);
+                renderCart();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            renderCart();
+            showToast('Carrito vaciado');
+        }
+
+        function checkoutModal() {
+            if (cart.length === 0) {
+                showToast('Tu carrito está vacío');
+                return;
+            }
+            showToast('¡Pedido realizado con éxito!');
+            cart = [];
+            renderCart();
+        }
+
+        // ============= UTILIDADES =============
+        function saveProfile() {
+            showToast('Perfil actualizado correctamente');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
+
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            }, 2500);
+        }
+
+        // ============= INICIALIZACIÓN =============
+        updateThemeIcon(); // Asegura que el ícono (sol/luna) coincida con el tema activo
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCarousels();
+            renderProducts();
+            renderCart();
+        });
+    </script>
+</body>
 </html>
-
-<style type="text/css" nonce="">
-	@keyframes pulse {
-		50% {
-			opacity: 0.65;
-		}
-	}
-
-	.animate-pulse-fast {
-		animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-	}
-</style>
