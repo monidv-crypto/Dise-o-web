@@ -58,7 +58,8 @@
             --wire-salmon-dark-rgb: 217 137 119; /* #D98977 */
             --wire-gray-rgb: 209 213 219;        /* #D1D5DB */
             --wire-graytext-rgb: 107 114 128;    /* #6B7280 (texto secundario) */
-            --wire-text-rgb: 56 49 43;           /* #38312B */
+            --wire-text-rgb: 116 75 50;          /* #744B32 Café (letras principales) */
+            --price-text-rgb: 245 238 211;       /* #F5EED3 Crema (texto de precios y botones Agregar, modo claro) */
         }
 
         /* ============ MODO OSCURO ============ */
@@ -69,6 +70,7 @@
             --wire-white-rgb: 69 56 41;          /* #453829 Café para superficies */
             --wire-text-rgb: 245 239 224;        /* #F5EFE0 Beige (letras) */
             --wire-graytext-rgb: 196 181 156;    /* #C4B59C Beige suave (texto secundario) */
+            --price-text-rgb: 116 75 50;         /* #744B32 Café (texto de precios y botones Agregar, modo oscuro) */
         }
 
         body {
@@ -87,21 +89,50 @@
         .tab-content { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Estilos Inputs Contacto */
+        /* Estilos Inputs Contacto (fondo salmón claro #EDAA90) */
         .input-style {
-            background-color: rgba(239, 163, 146, 0.15); /* Salmón muy tenue */
-            border: 1px solid #EFA392;
-            color: rgb(var(--wire-text-rgb));
+            background-color: #EDAA90;           /* Salmón claro */
+            border: 1px solid #D98977;           /* Contorno salmón oscuro sutil */
+            color: #744B32;                      /* Texto café, legible sobre el fondo claro */
         }
         .input-style::placeholder {
-            color: rgb(var(--wire-graytext-rgb) / 0.75);
+            color: rgba(116, 75, 50, 0.6);       /* Placeholder café semi-transparente */
             opacity: 1;
         }
         .input-style:focus {
-            background-color: rgb(var(--wire-white-rgb));
+            background-color: #EDAA90;           /* Se mantiene el fondo al enfocar */
             outline: none;
-            border-color: #D99B00;
-            box-shadow: 0 0 0 2px rgba(217, 155, 0, 0.2);
+            border-color: #D99B00;               /* Borde dorado al enfocar */
+            box-shadow: 0 0 0 2px rgba(217, 155, 0, 0.25);
+        }
+
+        /* ============ BOTONES DE PRECIOS ============ */
+        .price-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #85C0AE;           /* Menta (precio normal) */
+            color: rgb(var(--price-text-rgb));   /* Crema en claro / Café en oscuro */
+            font-weight: 900;                    /* Fuente más gruesa */
+            -webkit-text-stroke: 0.5px currentColor; /* Trazo extra que engorda las letras */
+            line-height: 1.2;
+            padding: 0.25rem 0.7rem;
+            border-radius: 9999px;
+            white-space: nowrap;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        .price-badge.cheap {
+            background-color: #E6AF01;           /* Mostaza (precios más baratos) */
+        }
+
+        /* ============ BOTÓN AGREGAR (fondo #EDAA90) ============ */
+        .btn-add {
+            background-color: #EDAA90;           /* Salmón claro solicitado */
+            color: rgb(var(--price-text-rgb));   /* #F5EED3 Crema en light / #744B32 Café en dark */
+        }
+        .btn-add:hover {
+            background-color: #DB9A78;           /* Salmón más oscuro al pasar el cursor */
+            color: rgb(var(--price-text-rgb));
         }
     </style>
 
@@ -121,8 +152,10 @@
     <header class="fixed top-0 left-0 right-0 w-full max-w-4xl mx-auto bg-wire-bg z-40 shadow-sm">
         <div class="px-4 py-3 flex items-center justify-between border-b border-wire-text/10">
             <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
-                <div class="w-8 h-8 rounded-full bg-wire-yellow flex items-center justify-center text-white font-bold text-sm shadow-xs">
+                <!-- LOGOTIPO: imagen nueva (pato) con la taza como respaldo si falla -->
+                <div class="relative w-8 h-8 rounded-full overflow-hidden bg-wire-yellow flex items-center justify-center text-white font-bold text-sm shadow-xs">
                     <i class="fa-solid fa-mug-hot"></i>
+                    <img src="https://z-cdn-media.chatglm.cn/files/75c095e2-6277-45ce-b405-68de28fd4b97.png?auth_key=1891837646-2b255d03dfc54b9caeec983bdcb4dcd2-0-2fdbdd67c11e86ae0bb8ca0aed183538" alt="Logotipo Café & Repostería" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove();">
                 </div>
                 <span class="font-display text-xl text-wire-text tracking-wide">Café & Repostería</span>
             </div>
@@ -234,20 +267,20 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Nombre</label>
-                            <input type="text" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="Tu nombre">
+                            <input type="text" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="Tu nombre">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Teléfono</label>
-                            <input type="tel" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="+52 55 1234 5678">
+                            <input type="tel" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="+52 55 1234 5678">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Correo Electrónico</label>
-                        <input type="email" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition" placeholder="correo@ejemplo.com">
+                        <input type="email" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="correo@ejemplo.com">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Mensaje</label>
-                        <textarea rows="4" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium text-wire-text transition resize-none" placeholder="Escribe aquí tu mensaje, pedido especial o duda..."></textarea>
+                        <textarea rows="4" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition resize-none" placeholder="Escribe aquí tu mensaje, pedido especial o duda..."></textarea>
                     </div>
                     <button type="submit" class="w-full bg-wire-yellow hover:bg-wire-yellow-hover text-white font-bold py-3 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-paper-plane"></i> Enviar Mensaje
@@ -369,8 +402,8 @@
             { id: 3, name: "Pastel de Fresa", category: "pasteles", price: 380, desc: "Capas de vainilla con relleno de fresas frescas.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=60" },
             { id: 4, name: "Pastel de Boda", category: "pasteles", price: 450, desc: "Elegante y multicolor para ocasiones especiales.", img: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=500&q=60" },
             // Pays
-            { id: 5, name: "Pay de Limón", category: "pays", price: 150, desc: "Cremoso y ácido sobre base crujiente.", img: "https://images.unsplash.com/photo-1519915028121-7d3463d20b1d?auto=format&fit=crop&w=500&q=60" },
-            { id: 6, name: "Pay de Queso", category: "pays", price: 160, desc: "New York Cheesecake clásico.", img: "https://images.unsplash.com/photo-1533134242443-d4ed215f33d2?auto=format&fit=crop&w=500&q=60" },
+            { id: 5, name: "Pay de Limón", category: "pays", price: 150, desc: "Cremoso y ácido sobre base crujiente.", img: "https://z-cdn-media.chatglm.cn/files/9bfa0a3c-4742-49d1-9865-fa3149405c06.png?auth_key=1891406034-1f2e311a95744b88a5b887d72ddae98a-0-0e08809ada52a5eceadd240f0279c4fe" },
+            { id: 6, name: "Pay de Queso", category: "pays", price: 160, desc: "New York Cheesecake clásico.", img: "https://z-cdn-media.chatglm.cn/files/446947c6-0758-4a0f-8e66-6dd6cc06d3df.png?auth_key=1891405811-76d09ecb279c43c9b741eb201cae95fd-0-2a6a17d1129597347009731062890e6f" },
             { id: 7, name: "Pay de Nuez", category: "pays", price: 170, desc: "Tradicional relleno de nuez y caramelo.", img: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=500&q=60" },
             { id: 8, name: "Pay de Manzana", category: "pays", price: 140, desc: "Tibio, con canela y manzanas caramelizadas.", img: "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60" },
             // Bebidas Frías
@@ -388,7 +421,11 @@
         let cart = [];
         let currentSubcategory = 'pasteles';
 
-        // Imagen de respaldo por si Unsplash falla (mantiene los colores de la web)
+        // Umbral de precio "barato": los productos con precio <= a este valor
+        // usan el botón mostaza (#E6AF01); el resto usa el botón menta (#85C0AE).
+        const CHEAP_PRICE_THRESHOLD = 100;
+
+        // Imagen de respaldo por si la imagen falla (mantiene los colores de la web)
         const fallbackImg = "https://placehold.co/500x500/F5EFE0/D99B00?text=Producto";
 
         // ============= MODO CLARO / OSCURO =============
@@ -405,6 +442,14 @@
                 icon.classList.remove('fa-moon', 'fa-sun');
                 icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
             }
+        }
+
+        // ============= BOTÓN DE PRECIO =============
+        // Genera la píldora del precio: menta para precios normales,
+        // mostaza para los más baratos (<= CHEAP_PRICE_THRESHOLD).
+        function priceBadge(price, sizeClass = "") {
+            const isCheap = price <= CHEAP_PRICE_THRESHOLD;
+            return `<span class="price-badge${isCheap ? " cheap" : ""}${sizeClass ? " " + sizeClass : ""}">$${price}</span>`;
         }
 
         // ============= MANEJO DE PESTAÑAS =============
@@ -463,8 +508,8 @@
                         <p class="text-xs text-wire-graytext leading-tight mt-1 mb-2">${item.desc}</p>
                     </div>
                     <div class="flex items-center justify-between gap-2 mt-2">
-                        <span class="font-bold text-wire-yellow text-lg">$${item.price}</span>
-                        <button onclick="addToCart(${item.id})" class="bg-wire-yellow hover:bg-wire-yellow-hover text-white text-xs font-bold py-2 px-4 rounded-full transition shadow-xs">
+                        ${priceBadge(item.price, "text-lg")}
+                        <button onclick="addToCart(${item.id})" class="btn-add text-xs font-bold py-2 px-4 rounded-full transition shadow-xs">
                             Agregar
                         </button>
                     </div>
@@ -576,8 +621,8 @@
                         <p class="text-[11px] text-wire-graytext leading-tight mt-1 mb-2">${prod.desc}</p>
                     </div>
                     <div class="flex items-center justify-between gap-2 mt-2">
-                        <span class="font-bold text-wire-yellow text-base sm:text-lg">$${prod.price}</span>
-                        <button onclick="addToCart(${prod.id})" class="bg-wire-yellow hover:bg-wire-yellow-hover text-white text-xs font-bold py-2 px-3 rounded-full transition shadow-xs">
+                        ${priceBadge(prod.price, "text-sm sm:text-lg")}
+                        <button onclick="addToCart(${prod.id})" class="btn-add text-xs font-bold py-2 px-3 rounded-full transition shadow-xs">
                             Agregar
                         </button>
                     </div>
@@ -629,9 +674,7 @@
                     </div>
                     <div class="flex-1">
                         <h4 class="font-bold text-base text-wire-text">${item.name}</h4>
-                        <span class="inline-block bg-wire-mint/20 text-wire-mint-dark text-xs font-bold px-2 py-0.5 rounded-full mt-1">
-                            $${item.price}
-                        </span>
+                        ${priceBadge(item.price, "text-xs mt-1")}
                     </div>
 
                     <div class="flex items-center gap-3">
