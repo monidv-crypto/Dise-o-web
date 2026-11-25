@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cafetería & Repostería: pasteles, pays, bebidas frías y calientes. Pide en línea y disfruta.">
     <title>Cafetería & Repostería Web App</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="./logo.png" />
+    <link rel="shortcut icon" href="./logo.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="./logo.png" />
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts (Cabin y Changa One) -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Changa+One:ital@0;1&display=swap" rel="stylesheet">
-    
+
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        // Colores basados en variables CSS para soportar modo oscuro
                         'wire-bg': 'rgb(var(--wire-bg-rgb) / <alpha-value>)',
                         'wire-card': 'rgb(var(--wire-card-rgb) / <alpha-value>)',
                         'wire-white': 'rgb(var(--wire-white-rgb) / <alpha-value>)',
@@ -44,33 +50,63 @@
     </script>
 
     <style>
-        /* ============ MODO CLARO (por defecto) ============ */
+        /* ============ RESET ============ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+        body {
+            min-height: 100vh;
+            line-height: 1.5;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+        input, button, textarea, select { font: inherit; color: inherit; }
+        p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+        a { color: inherit; text-decoration: none; }
+        ul { list-style: none; }
+
+        /* ============ TIPOGRAFÍA FLUIDA ============ */
+        h1 { font-size: clamp(1.75rem, 5vw, 3rem); line-height: 1.1; }
+        h2 { font-size: clamp(1.4rem, 3.5vw, 2.25rem); line-height: 1.2; }
+        h3 { font-size: clamp(1.15rem, 2.5vw, 1.5rem); }
+        p  { font-size: clamp(0.95rem, 1.5vw, 1.05rem); }
+
+        /* ============ PREFERENCIAS ============ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ============ MODO CLARO ============ */
         :root {
             color-scheme: light;
-            --wire-bg-rgb: 245 239 224;          /* #F5EFE0 Beige/Crema */
-            --wire-card-rgb: 250 246 236;        /* #FAF6EC Fondo de tarjetas */
-            --wire-white-rgb: 255 255 255;       /* #FFFFFF Superficies blancas */
-            --wire-yellow-rgb: 217 155 0;        /* #D99B00 Dorado/Mostaza */
-            --wire-yellow-hover-rgb: 184 131 0;  /* #B88300 */
-            --wire-mint-rgb: 128 196 183;        /* #80C4B7 Verde menta */
-            --wire-mint-dark-rgb: 97 163 150;    /* #61A396 */
-            --wire-salmon-rgb: 239 163 146;      /* #EFA392 Salmón */
-            --wire-salmon-dark-rgb: 217 137 119; /* #D98977 */
-            --wire-gray-rgb: 209 213 219;        /* #D1D5DB */
-            --wire-graytext-rgb: 107 114 128;    /* #6B7280 (texto secundario) */
-            --wire-text-rgb: 116 75 50;          /* #744B32 Café (letras principales) */
-            --price-text-rgb: 245 238 211;       /* #F5EED3 Crema (texto de precios y botones Agregar, modo claro) */
+            --wire-bg-rgb: 245 239 224;
+            --wire-card-rgb: 250 246 236;
+            --wire-white-rgb: 255 255 255;
+            --wire-yellow-rgb: 217 155 0;
+            --wire-yellow-hover-rgb: 184 131 0;
+            --wire-mint-rgb: 128 196 183;
+            --wire-mint-dark-rgb: 97 163 150;
+            --wire-salmon-rgb: 239 163 146;
+            --wire-salmon-dark-rgb: 217 137 119;
+            --wire-gray-rgb: 209 213 219;
+            --wire-graytext-rgb: 107 114 128;
+            --wire-text-rgb: 116 75 50;
+            --price-text-rgb: 245 238 211;
         }
 
         /* ============ MODO OSCURO ============ */
         .dark {
             color-scheme: dark;
-            --wire-bg-rgb: 42 33 24;             /* #2A2118 Café oscuro (fondo) */
-            --wire-card-rgb: 54 43 33;           /* #362B21 Café para tarjetas */
-            --wire-white-rgb: 69 56 41;          /* #453829 Café para superficies */
-            --wire-text-rgb: 245 239 224;        /* #F5EFE0 Beige (letras) */
-            --wire-graytext-rgb: 196 181 156;    /* #C4B59C Beige suave (texto secundario) */
-            --price-text-rgb: 116 75 50;         /* #744B32 Café (texto de precios y botones Agregar, modo oscuro) */
+            --wire-bg-rgb: 42 33 24;
+            --wire-card-rgb: 54 43 33;
+            --wire-white-rgb: 69 56 41;
+            --wire-text-rgb: 245 239 224;
+            --wire-graytext-rgb: 196 181 156;
+            --price-text-rgb: 116 75 50;
         }
 
         body {
@@ -81,63 +117,120 @@
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Ocultar scrollbar para los carruseles */
+        /* Scrollbar oculto para carruseles */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Transición suave para cambio de pestañas */
+        /* Transición de pestañas */
         .tab-content { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Estilos Inputs Contacto (fondo salmón claro #EDAA90) */
+        /* Inputs contacto */
         .input-style {
-            background-color: #EDAA90;           /* Salmón claro */
-            border: 1px solid #D98977;           /* Contorno salmón oscuro sutil */
-            color: #744B32;                      /* Texto café, legible sobre el fondo claro */
+            background-color: #EDAA90;
+            border: 1px solid #D98977;
+            color: #744B32;
         }
-        .input-style::placeholder {
-            color: rgba(116, 75, 50, 0.6);       /* Placeholder café semi-transparente */
-            opacity: 1;
-        }
+        .input-style::placeholder { color: rgba(116, 75, 50, 0.6); opacity: 1; }
         .input-style:focus {
-            background-color: #EDAA90;           /* Se mantiene el fondo al enfocar */
+            background-color: #EDAA90;
             outline: none;
-            border-color: #D99B00;               /* Borde dorado al enfocar */
+            border-color: #D99B00;
             box-shadow: 0 0 0 2px rgba(217, 155, 0, 0.25);
         }
 
-        /* ============ BOTONES DE PRECIOS ============ */
+        /* Badge de precio */
         .price-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: #85C0AE;           /* Menta (precio normal) */
-            color: rgb(var(--price-text-rgb));   /* Crema en claro / Café en oscuro */
-            font-weight: 900;                    /* Fuente más gruesa */
-            -webkit-text-stroke: 0.5px currentColor; /* Trazo extra que engorda las letras */
+            background-color: #85C0AE;
+            color: rgb(var(--price-text-rgb));
+            font-weight: 900;
+            -webkit-text-stroke: 0.5px currentColor;
             line-height: 1.2;
             padding: 0.25rem 0.7rem;
             border-radius: 9999px;
             white-space: nowrap;
             transition: background-color 0.4s ease, color 0.4s ease;
         }
-        .price-badge.cheap {
-            background-color: #E6AF01;           /* Mostaza (precios más baratos) */
-        }
+        .price-badge.cheap { background-color: #E6AF01; }
 
-        /* ============ BOTÓN AGREGAR (fondo #EDAA90) ============ */
+        /* Botón agregar */
         .btn-add {
-            background-color: #EDAA90;           /* Salmón claro solicitado */
-            color: rgb(var(--price-text-rgb));   /* #F5EED3 Crema en light / #744B32 Café en dark */
-        }
-        .btn-add:hover {
-            background-color: #DB9A78;           /* Salmón más oscuro al pasar el cursor */
+            background-color: #EDAA90;
             color: rgb(var(--price-text-rgb));
         }
+        .btn-add:hover {
+            background-color: #DB9A78;
+            color: rgb(var(--price-text-rgb));
+        }
+
+        /* ============ WIDGET YOUTUBE ============ */
+        .yt-widget-container {
+            max-width: 850px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            background: #181818;
+            padding: 15px;
+            border-radius: 12px;
+            color: #ffffff;
+        }
+        .yt-main-player {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+        }
+        .yt-main-player iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 0;
+        }
+        .yt-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .yt-thumb-item {
+            cursor: pointer;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+            background: #252525;
+        }
+        .yt-thumb-item:hover { transform: translateY(-3px); }
+        .yt-thumb-item.active { border-color: #744B32; }
+        .yt-thumb-item img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+        .yt-thumb-title {
+            font-size: 12px;
+            padding: 6px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 600px) {
+            .yt-thumbnails { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Estado inicial del toast (para que la animación se vea desde abajo) */
+        #toast { transform: translate(-50%, 0); }
+        #toast.hidden-toast { transform: translate(-50%, 2.5rem); }
     </style>
 
     <script>
-        // Aplica el tema guardado ANTES de pintar la página (evita parpadeo)
+        // Aplica el tema antes de pintar (evita FOUC)
         (function () {
             const saved = localStorage.getItem('theme');
             if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -146,141 +239,119 @@
         })();
     </script>
 </head>
-<body class="min-h-screen pt-28 pb-12">
+<body class="min-h-screen pb-12">
 
-    <!-- HEADER FIJO (centrado en la parte superior) -->
-    <header class="fixed top-0 left-0 right-0 w-full max-w-4xl mx-auto bg-wire-bg z-40 shadow-sm">
+    <!-- HEADER STICKY -->
+    <header class="sticky top-0 left-0 right-0 w-full max-w-4xl mx-auto bg-wire-bg z-40 shadow-sm">
         <div class="px-4 py-3 flex items-center justify-between border-b border-wire-text/10">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
-                <!-- LOGOTIPO: imagen nueva (pato) con la taza como respaldo si falla -->
+            <button onclick="switchTab('home')" class="flex items-center gap-2 cursor-pointer bg-transparent" aria-label="Ir al inicio">
                 <div class="relative w-8 h-8 rounded-full overflow-hidden bg-wire-yellow flex items-center justify-center text-white font-bold text-sm shadow-xs">
                     <i class="fa-solid fa-mug-hot"></i>
                     <img src="https://z-cdn-media.chatglm.cn/files/75c095e2-6277-45ce-b405-68de28fd4b97.png?auth_key=1891837646-2b255d03dfc54b9caeec983bdcb4dcd2-0-2fdbdd67c11e86ae0bb8ca0aed183538" alt="Logotipo Café & Repostería" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove();">
                 </div>
                 <span class="font-display text-xl text-wire-text tracking-wide">Café & Repostería</span>
-            </div>
-            
+            </button>
+
             <div class="flex items-center gap-1">
-                <!-- Botón Modo Claro / Oscuro -->
-                <button onclick="toggleDarkMode()" id="theme-toggle" class="p-2 text-wire-text hover:text-wire-yellow transition" title="Cambiar modo claro/oscuro" aria-label="Cambiar modo claro/oscuro">
+                <button onclick="toggleDarkMode()" id="theme-toggle" class="p-2 text-wire-text hover:text-wire-yellow transition" title="Cambiar modo claro/oscuro" aria-label="Activar modo oscuro">
                     <i class="fa-solid fa-moon text-xl"></i>
                 </button>
 
-                <!-- Notificación Carrito -->
-                <button onclick="switchTab('compras')" class="relative p-2 text-wire-text hover:text-wire-yellow transition">
+                <button onclick="switchTab('compras')" class="relative p-2 text-wire-text hover:text-wire-yellow transition" aria-label="Ver carrito">
                     <i class="fa-solid fa-bag-shopping text-xl"></i>
                     <span id="cart-badge-count" class="absolute -top-1 -right-1 bg-wire-salmon text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-wire-bg">0</span>
                 </button>
             </div>
         </div>
 
-        <!-- NAVEGACIÓN PRINCIPAL SUPERIOR -->
         <nav class="flex items-center justify-around h-12 bg-wire-card text-sm">
-            <button onclick="switchTab('home')" id="nav-home" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
-                Home
-            </button>
-            <button onclick="switchTab('productos')" id="nav-productos" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
-                Productos
-            </button>
-            <button onclick="switchTab('muro')" id="nav-muro" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
-                Muro
-            </button>
-            <button onclick="switchTab('compras')" id="nav-compras" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">
-                Compras
-            </button>
+            <button onclick="switchTab('home')" id="nav-home" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">Home</button>
+            <button onclick="switchTab('productos')" id="nav-productos" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">Productos</button>
+            <button onclick="switchTab('muro')" id="nav-muro" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">Muro</button>
+            <button onclick="switchTab('compras')" id="nav-compras" class="nav-btn font-semibold text-wire-graytext hover:text-wire-text transition px-4 py-2 border-b-2 border-transparent">Compras</button>
         </nav>
     </header>
 
     <main class="w-full max-w-4xl mx-auto px-4">
 
-        <!-- ======================================================= -->
-        <!-- PESTAÑA: HOME (LANDING PAGE)                            -->
-        <!-- ======================================================= -->
+        <!-- ================= HOME ================= -->
         <section id="tab-home" class="tab-content space-y-16 py-6">
-            
-            <!-- 1. SECCIÓN POSTRES -->
+
+            <!-- Postres -->
             <div id="home-postres">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-3xl font-display text-wire-text">Postres</h2>
                     <button onclick="switchTab('productos', 'pasteles')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
                 </div>
                 <div id="carousel-postres" class="relative">
-                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
-                        <!-- JS poblará esto -->
-                    </div>
-                    <!-- Flechas -->
-                    <button onclick="moveCarousel('carousel-postres', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide"></div>
+                    <button onclick="moveCarousel('carousel-postres', -1)" aria-label="Anterior" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </button>
-                    <button onclick="moveCarousel('carousel-postres', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                    <button onclick="moveCarousel('carousel-postres', 1)" aria-label="Siguiente" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
                         <i class="fa-solid fa-chevron-right text-sm"></i>
                     </button>
-                    <!-- Dots -->
                     <div id="dots-postres" class="flex justify-center gap-2 mt-2"></div>
                 </div>
             </div>
 
-            <!-- 2. SECCIÓN BEBIDAS -->
+            <!-- Bebidas -->
             <div id="home-bebidas">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-3xl font-display text-wire-text">Bebidas</h2>
                     <button onclick="switchTab('productos', 'bebidas-calientes')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
                 </div>
                 <div id="carousel-bebidas" class="relative">
-                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
-                        <!-- JS poblará esto -->
-                    </div>
-                    <button onclick="moveCarousel('carousel-bebidas', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide"></div>
+                    <button onclick="moveCarousel('carousel-bebidas', -1)" aria-label="Anterior" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </button>
-                    <button onclick="moveCarousel('carousel-bebidas', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                    <button onclick="moveCarousel('carousel-bebidas', 1)" aria-label="Siguiente" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
                         <i class="fa-solid fa-chevron-right text-sm"></i>
                     </button>
                     <div id="dots-bebidas" class="flex justify-center gap-2 mt-2"></div>
                 </div>
             </div>
 
-            <!-- 3. SECCIÓN MURO -->
+            <!-- Muro -->
             <div id="home-muro">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-3xl font-display text-wire-text">Muro</h2>
                     <button onclick="switchTab('muro')" class="text-sm text-wire-yellow font-bold hover:underline">Ver todo</button>
                 </div>
                 <div id="carousel-muro" class="relative">
-                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide">
-                        <!-- JS poblará esto -->
-                    </div>
-                    <button onclick="moveCarousel('carousel-muro', -1)" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                    <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-5 pb-6 scrollbar-hide"></div>
+                    <button onclick="moveCarousel('carousel-muro', -1)" aria-label="Anterior" class="absolute top-1/2 -translate-y-1/2 -left-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
                         <i class="fa-solid fa-chevron-left text-sm"></i>
                     </button>
-                    <button onclick="moveCarousel('carousel-muro', 1)" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
+                    <button onclick="moveCarousel('carousel-muro', 1)" aria-label="Siguiente" class="absolute top-1/2 -translate-y-1/2 -right-3 w-9 h-9 bg-wire-white rounded-full shadow-md flex items-center justify-center text-wire-text hover:bg-wire-yellow hover:text-white transition">
                         <i class="fa-solid fa-chevron-right text-sm"></i>
                     </button>
                     <div id="dots-muro" class="flex justify-center gap-2 mt-2"></div>
                 </div>
             </div>
 
-            <!-- 4. SECCIÓN CONTACTO -->
+            <!-- Contacto -->
             <div id="home-contacto" class="bg-wire-mint/20 p-6 sm:p-10 rounded-3xl border border-wire-mint/30">
                 <h2 class="text-3xl font-display text-wire-text mb-6">Contacto</h2>
-                <form onsubmit="event.preventDefault(); showToast('Mensaje enviado con éxito. ¡Gracias por contactarnos!');" class="space-y-5 max-w-lg mx-auto">
+                <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5 max-w-lg mx-auto">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Nombre</label>
-                            <input type="text" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="Tu nombre">
+                            <input type="text" name="nombre" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="Tu nombre">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Teléfono</label>
-                            <input type="tel" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="+52 55 1234 5678">
+                            <input type="tel" name="telefono" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="+52 55 1234 5678">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Correo Electrónico</label>
-                        <input type="email" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="correo@ejemplo.com">
+                        <input type="email" name="email" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition" placeholder="correo@ejemplo.com">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-wire-text/80 uppercase mb-1.5">Mensaje</label>
-                        <textarea rows="4" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition resize-none" placeholder="Escribe aquí tu mensaje, pedido especial o duda..."></textarea>
+                        <textarea name="mensaje" rows="4" required class="input-style w-full px-4 py-2.5 rounded-xl text-sm font-medium transition resize-none" placeholder="Escribe aquí tu mensaje, pedido especial o duda..."></textarea>
                     </div>
                     <button type="submit" class="w-full bg-wire-yellow hover:bg-wire-yellow-hover text-white font-bold py-3 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-paper-plane"></i> Enviar Mensaje
@@ -288,56 +359,72 @@
                 </form>
             </div>
 
-        </section>
-      
-        <section>
-            <div>
-                <h2 class="text-3xl font-display text-wire-text mb-6">Nos ubicamos en:</h2>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d939.4918229955761!2d-99.13512012785483!3d19.6286960577543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f17a5169fe65%3A0xd5e9a70e255d9606!2sAv.%20Jos%C3%A9%20L%C3%B3pez%20Portillo%2C%20Estado%20de%20M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1792704263744!5m2!1ses-419!2smx" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                &reg; 2024 Bakery. Todos los derechos reservados.
+            <!-- Multimedia -->
+            <div id="home-multimedia" class="space-y-8">
+                <h2 class="text-3xl font-display text-wire-text text-center">Para acompañar tu café</h2>
+
+                <div class="max-w-2xl mx-auto">
+                    <h3 class="text-lg font-display text-wire-text mb-3 text-center">Nuestra playlist</h3>
+                    <iframe title="Playlist de Spotify"
+                            data-testid="embed-iframe" style="border-radius:12px"
+                            src="https://open.spotify.com/embed/track/0BgbobvykXxEvxo2HhCuvM?utm_source=generator&si=7ad97b71bad5408a"
+                            width="100%" height="352" frameBorder="0" allowfullscreen=""
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy"></iframe>
+                </div>
+
+                <div class="yt-widget-container">
+                    <h3 class="text-lg font-display text-wire-text mb-3">Videos del canal</h3>
+                    <div class="yt-main-player">
+                        <iframe id="yt-active-frame"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                title="Reproductor de YouTube"
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="yt-thumbnails" id="yt-thumbnails"></div>
+                </div>
             </div>
+
+            <!-- Ubicación -->
+            <div id="home-ubicacion" class="bg-wire-mint/20 p-6 sm:p-10 rounded-3xl border border-wire-mint/30">
+                <h2 class="text-3xl font-display text-wire-text mb-6 text-center">Nos ubicamos en:</h2>
+                <div class="rounded-2xl overflow-hidden shadow-md border-4 border-white max-w-2xl mx-auto">
+                    <iframe title="Ubicación de la cafetería"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d939.4918229955761!2d-99.13512012785483!3d19.6286960577543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f17a5169fe65%3A0xd5e9a70e255d9606!2sAv.%20Jos%C3%A9%20L%C3%B3pez%20Portillo%2C%20Estado%20de%20M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1792704263744!5m2!1ses-419!2smx"
+                            width="100%" height="300" style="border:0; display:block;"
+                            allowfullscreen="" loading="lazy"
+                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
+
         </section>
-        
-<!-- ======================================================= -->
-        <!-- PESTAÑA: PRODUCTOS                                      -->
-        <!-- ======================================================= -->
+
+        <!-- ================= PRODUCTOS ================= -->
         <section id="tab-productos" class="tab-content hidden space-y-8 py-6">
             <h1 class="text-3xl font-display text-wire-text">Nuestros Productos</h1>
-            
-            <!-- Subcategorías -->
+
             <div class="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
-                <button onclick="filterSubcategory('pasteles', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-yellow text-white rounded-full transition shadow-xs">Pasteles</button>
-                <button onclick="filterSubcategory('pays', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Pays</button>
-                <button onclick="filterSubcategory('bebidas-frias', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Bebidas Frías</button>
-                <button onclick="filterSubcategory('bebidas-calientes', this)" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Bebidas Calientes</button>
+                <button data-subcat="pasteles" onclick="filterSubcategory('pasteles')" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-yellow text-white rounded-full transition shadow-xs">Pasteles</button>
+                <button data-subcat="pays" onclick="filterSubcategory('pays')" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Pays</button>
+                <button data-subcat="bebidas-frias" onclick="filterSubcategory('bebidas-frias')" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Bebidas Frías</button>
+                <button data-subcat="bebidas-calientes" onclick="filterSubcategory('bebidas-calientes')" class="subcat-btn flex-shrink-0 text-sm font-bold px-5 py-2 bg-wire-white text-wire-graytext rounded-full hover:bg-wire-text/10 transition">Bebidas Calientes</button>
             </div>
 
-            <!-- Grilla de Productos -->
-            <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-                <!-- JS poblará esto -->
-            </div>
+            <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5"></div>
         </section>
 
-        <!-- ======================================================= -->
-        <!-- PESTAÑA: MURO (GALERÍA CLIENTES)                        -->
-        <!-- ======================================================= -->
+        <!-- ================= MURO ================= -->
         <section id="tab-muro" class="tab-content hidden py-6">
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-display text-wire-text">Muro de la Comunidad</h1>
-                <p class="text-wire-graytext mt-1 text-sm">Las mejores momentos compartidos por nuestros clientes.</p>
+                <p class="text-wire-graytext mt-1 text-sm">Los mejores momentos compartidos por nuestros clientes.</p>
             </div>
-            <!-- Grilla tipo Masonry adaptativo -->
-            <div id="muro-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <!-- JS poblará esto -->
-            </div>
+            <div id="muro-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
         </section>
 
-        <!-- ======================================================= -->
-        <!-- PESTAÑA: COMPRAS (CARRITO Y PERFIL)                     -->
-        <!-- ======================================================= -->
+        <!-- ================= COMPRAS ================= -->
         <section id="tab-compras" class="tab-content hidden space-y-10 py-6">
-            
-            <!-- Carrito -->
+
             <div class="space-y-5">
                 <div class="flex items-center justify-between border-b border-wire-text/15 pb-3">
                     <h2 class="text-2xl font-display text-wire-text flex items-center gap-2">
@@ -353,14 +440,13 @@
                         <span class="text-xs text-wire-graytext uppercase font-bold tracking-wider">Total a Pagar</span>
                         <div class="text-3xl font-display text-wire-text" id="cart-total-price">$0</div>
                     </div>
-                    <button onclick="checkoutModal()" class="bg-wire-mint hover:bg-wire-mint-dark text-white font-bold px-6 py-3 rounded-full shadow-sm transition flex items-center gap-2">
+                    <button onclick="confirmOrder()" class="bg-wire-mint hover:bg-wire-mint-dark text-white font-bold px-6 py-3 rounded-full shadow-sm transition flex items-center gap-2">
                         <span>Confirmar Pedido</span>
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Perfil -->
             <div class="pt-4 border-t border-wire-text/15">
                 <h2 class="text-2xl font-display text-wire-text mb-5 flex items-center gap-2">
                     <i class="fa-solid fa-user-gear text-wire-yellow"></i> Perfil de Usuario
@@ -373,16 +459,16 @@
 
                     <div class="space-y-3 pt-2 text-left">
                         <div>
-                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Nombre Completo</label>
-                            <input type="text" value="At vero eos" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
+                            <label for="profile-name" class="text-[11px] font-bold text-wire-text/80 uppercase">Nombre Completo</label>
+                            <input id="profile-name" type="text" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
                         </div>
                         <div>
-                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Teléfono</label>
-                            <input type="text" value="+52 55 1234 5678" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
+                            <label for="profile-phone" class="text-[11px] font-bold text-wire-text/80 uppercase">Teléfono</label>
+                            <input id="profile-phone" type="text" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
                         </div>
                         <div>
-                            <label class="text-[11px] font-bold text-wire-text/80 uppercase">Dirección</label>
-                            <input type="text" value="Av. Principal #45" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
+                            <label for="profile-address" class="text-[11px] font-bold text-wire-text/80 uppercase">Dirección</label>
+                            <input id="profile-address" type="text" class="w-full bg-wire-salmon/30 dark:bg-black/25 border border-white/60 text-wire-text font-semibold px-3 py-2 rounded-xl text-sm focus:outline-none focus:bg-wire-white transition">
                         </div>
                     </div>
 
@@ -395,72 +481,108 @@
 
     </main>
 
-    <!-- Modal Toast -->
-    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-wire-text text-wire-bg px-5 py-3 rounded-xl shadow-xl z-50 transition-all duration-300 opacity-0 pointer-events-none flex items-center gap-2 text-sm font-semibold">
+    <!-- Footer fuera de main -->
+    <footer class="text-center text-wire-graytext text-xs py-6 border-t border-wire-text/10 mt-4">
+        © 2024 Café &amp; Repostería. Todos los derechos reservados.
+    </footer>
+
+    <!-- Toast -->
+    <div id="toast" class="hidden-toast fixed bottom-5 left-1/2 bg-wire-text text-wire-bg px-5 py-3 rounded-xl shadow-xl z-50 transition-all duration-300 opacity-0 pointer-events-none flex items-center gap-2 text-sm font-semibold">
         <i class="fa-solid fa-circle-check text-wire-mint"></i>
         <span id="toast-message">Mensaje</span>
     </div>
 
     <script>
-        // ============= BASE DE DATOS SIMULADA =============
+        // ============= DATOS =============
         const PRODUCTS = [
-            // Pasteles
             { id: 1, name: "Pastel de Chocolate", category: "pasteles", price: 350, desc: "Bizcocho húmedo con ganache de chocolate oscuro.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60" },
             { id: 2, name: "Pastel Tres Leches", category: "pasteles", price: 320, desc: "Clásico bañado en tres leches y crema vainilla.", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=60" },
             { id: 3, name: "Pastel de Fresa", category: "pasteles", price: 380, desc: "Capas de vainilla con relleno de fresas frescas.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=60" },
             { id: 4, name: "Pastel de Boda", category: "pasteles", price: 450, desc: "Elegante y multicolor para ocasiones especiales.", img: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=500&q=60" },
-            // Pays
             { id: 5, name: "Pay de Limón", category: "pays", price: 150, desc: "Cremoso y ácido sobre base crujiente.", img: "https://z-cdn-media.chatglm.cn/files/9bfa0a3c-4742-49d1-9865-fa3149405c06.png?auth_key=1891406034-1f2e311a95744b88a5b887d72ddae98a-0-0e08809ada52a5eceadd240f0279c4fe" },
             { id: 6, name: "Pay de Queso", category: "pays", price: 160, desc: "New York Cheesecake clásico.", img: "https://z-cdn-media.chatglm.cn/files/446947c6-0758-4a0f-8e66-6dd6cc06d3df.png?auth_key=1891405811-76d09ecb279c43c9b741eb201cae95fd-0-2a6a17d1129597347009731062890e6f" },
             { id: 7, name: "Pay de Nuez", category: "pays", price: 170, desc: "Tradicional relleno de nuez y caramelo.", img: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=500&q=60" },
             { id: 8, name: "Pay de Manzana", category: "pays", price: 140, desc: "Tibio, con canela y manzanas caramelizadas.", img: "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60" },
-            // Bebidas Frías
             { id: 9, name: "Frappé Caramelo", category: "bebidas-frias", price: 95, desc: "Bebida helada con crema batida y caramelo.", img: "https://images.unsplash.com/photo-1572286258217-215cf8e16567?auto=format&fit=crop&w=500&q=60" },
             { id: 10, name: "Iced Latte", category: "bebidas-frias", price: 75, desc: "Espresso frío con leche y hielo.", img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500&q=60" },
             { id: 11, name: "Frappé Mocha", category: "bebidas-frias", price: 100, desc: "Mezcla helada de café, chocolate y leche.", img: "https://images.unsplash.com/photo-1571219025102-7ed1d4e0a8d2?auto=format&fit=crop&w=500&q=60" },
             { id: 12, name: "Limonada de Hierbas", category: "bebidas-frias", price: 60, desc: "Refrescante limonada con un toque de hierbabuena.", img: "https://images.unsplash.com/photo-1523677011789-4c16b0e3d8df?auto=format&fit=crop&w=500&q=60" },
-            // Bebidas Calientes
             { id: 13, name: "Cappuccino", category: "bebidas-calientes", price: 70, desc: "Equilibrado espresso, leche y espuma.", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=60" },
             { id: 14, name: "Latte Vainilla", category: "bebidas-calientes", price: 80, desc: "Suave espresso con leche vaporizada y vainilla.", img: "https://images.unsplash.com/photo-1561882468-9110e03e0f78?auto=format&fit=crop&w=500&q=60" },
             { id: 15, name: "Chocolate Caliente", category: "bebidas-calientes", price: 85, desc: "Chocolate belga espumoso con malvaviscos.", img: "https://images.unsplash.com/photo-1542990253-0b8be3b0e4d3?auto=format&fit=crop&w=500&q=60" },
             { id: 16, name: "Té Chai Latte", category: "bebidas-calientes", price: 75, desc: "Especias aromáticas con leche cremosa.", img: "https://images.unsplash.com/photo-1565452344518-47faca79dc69?auto=format&fit=crop&w=500&q=60" }
         ];
 
+        const MURO_IMAGES = [
+            "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1572286258217-215cf8e16567?auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1571219025102-7ed1d4e0a8d2?auto=format&fit=crop&w=500&q=60",
+            "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=60"
+        ];
+
+        const YOUTUBE_VIDEOS = [
+            { id: 'dQw4w9WgXcQ', title: 'Video 1' },
+            { id: '9bZkp7q19f0', title: 'Video 2' },
+            { id: 'kJQP7kiw5Fk', title: 'Video 3' },
+            { id: 'OPf0YbXqDm0', title: 'Video 4' },
+            { id: 'RgKAFK5djSk', title: 'Video 5' }
+        ];
+
+        const CHEAP_PRICE_THRESHOLD = 100;
+        const fallbackImg = "https://placehold.co/500x500/F5EFE0/D99B00?text=Producto";
+        const STORAGE_KEYS = { cart: 'cafe_cart', profile: 'cafe_profile', theme: 'theme' };
+
         let cart = [];
         let currentSubcategory = 'pasteles';
 
-        // Umbral de precio "barato": los productos con precio <= a este valor
-        // usan el botón mostaza (#E6AF01); el resto usa el botón menta (#85C0AE).
-        const CHEAP_PRICE_THRESHOLD = 100;
+        // ============= PERSISTENCIA =============
+        function loadCart() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEYS.cart);
+                cart = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(cart)) cart = [];
+            } catch (e) { cart = []; }
+        }
+        function saveCart() {
+            try { localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(cart)); } catch (e) {}
+        }
+        function loadProfile() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEYS.profile);
+                const p = raw ? JSON.parse(raw) : null;
+                if (p) {
+                    document.getElementById('profile-name').value = p.name || '';
+                    document.getElementById('profile-phone').value = p.phone || '';
+                    document.getElementById('profile-address').value = p.address || '';
+                }
+            } catch (e) {}
+        }
 
-        // Imagen de respaldo por si la imagen falla (mantiene los colores de la web)
-        const fallbackImg = "https://placehold.co/500x500/F5EFE0/D99B00?text=Producto";
-
-        // ============= MODO CLARO / OSCURO =============
+        // ============= TEMA =============
         function toggleDarkMode() {
             const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            localStorage.setItem(STORAGE_KEYS.theme, isDark ? 'dark' : 'light');
             updateThemeIcon();
         }
-
         function updateThemeIcon() {
-            const icon = document.querySelector('#theme-toggle i');
-            if (icon) {
-                const isDark = document.documentElement.classList.contains('dark');
-                icon.classList.remove('fa-moon', 'fa-sun');
-                icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
-            }
+            const btn = document.getElementById('theme-toggle');
+            const icon = btn?.querySelector('i');
+            if (!icon) return;
+            const isDark = document.documentElement.classList.contains('dark');
+            icon.classList.remove('fa-moon', 'fa-sun');
+            icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+            btn.setAttribute('aria-label', isDark ? 'Activar modo claro' : 'Activar modo oscuro');
+            btn.setAttribute('title', isDark ? 'Activar modo claro' : 'Activar modo oscuro');
         }
 
-        // ============= BOTÓN DE PRECIO =============
-        // Genera la píldora del precio: menta para precios normales,
-        // mostaza para los más baratos (<= CHEAP_PRICE_THRESHOLD).
+        // ============= UTILIDADES =============
         function priceBadge(price, sizeClass = "") {
             const isCheap = price <= CHEAP_PRICE_THRESHOLD;
             return `<span class="price-badge${isCheap ? " cheap" : ""}${sizeClass ? " " + sizeClass : ""}">$${price}</span>`;
         }
 
-        // ============= MANEJO DE PESTAÑAS =============
         function switchTab(tabName, subcat = null) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -468,9 +590,14 @@
                 btn.classList.add('text-wire-graytext');
             });
 
-            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`nav-${tabName}`).classList.add('border-wire-text', 'text-wire-text');
-            document.getElementById(`nav-${tabName}`).classList.remove('text-wire-graytext');
+            const tabEl = document.getElementById(`tab-${tabName}`);
+            if (tabEl) tabEl.classList.remove('hidden');
+
+            const navBtn = document.getElementById(`nav-${tabName}`);
+            if (navBtn) {
+                navBtn.classList.add('border-wire-text', 'text-wire-text');
+                navBtn.classList.remove('text-wire-graytext');
+            }
 
             if (tabName === 'productos') {
                 if (subcat) currentSubcategory = subcat;
@@ -481,28 +608,24 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ============= RENDERIZADO HOME =============
+        // ============= CARRUSELES =============
         function renderCarousels() {
             const postres = PRODUCTS.filter(p => p.category === 'pasteles' || p.category === 'pays');
             const bebidas = PRODUCTS.filter(p => p.category === 'bebidas-frias' || p.category === 'bebidas-calientes');
-            const muroImages = [
-                "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60",
-                "https://images.unsplash.com/photo-1572286258217-215cf8e16567?auto=format&fit=crop&w=500&q=60",
-                "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=500&q=60",
-                "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=60",
-                "https://images.unsplash.com/photo-1571219025102-7ed1d4e0a8d2?auto=format&fit=crop&w=500&q=60",
-                "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=60"
-            ];
 
             renderCarouselItems('carousel-postres', postres, 'dots-postres', 'pasteles');
             renderCarouselItems('carousel-bebidas', bebidas, 'dots-bebidas', 'bebidas-calientes');
-            renderMuroCarousel('carousel-muro', muroImages, 'dots-muro');
-            renderMuroGrid(muroImages.concat(muroImages)); // Duplicar para llenar grid
+            renderMuroCarousel('carousel-muro', MURO_IMAGES, 'dots-muro');
+            renderMuroGrid(MURO_IMAGES.concat(MURO_IMAGES));
         }
 
         function renderCarouselItems(containerId, items, dotsId, subcatRedirect) {
-            const container = document.querySelector(`#${containerId} > div`);
+            const wrapper = document.getElementById(containerId);
+            if (!wrapper) return;
+            const container = wrapper.querySelector(':scope > div');
             const dotsContainer = document.getElementById(dotsId);
+            if (!container || !dotsContainer) return;
+
             container.innerHTML = '';
             dotsContainer.innerHTML = '';
 
@@ -510,32 +633,36 @@
                 const card = document.createElement('div');
                 card.className = "flex-shrink-0 w-[70%] sm:w-[45%] md:w-[31%] snap-start bg-wire-card rounded-2xl p-3 shadow-sm border border-wire-text/10 flex flex-col transition hover:shadow-md";
                 card.innerHTML = `
-                    <img src="${item.img}" alt="${item.name}" onerror="this.onerror=null;this.src='${fallbackImg}';" onclick="switchTab('productos', '${subcatRedirect}')" class="w-full aspect-square object-cover rounded-xl mb-3 cursor-pointer">
+                    <img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImg}';" onclick="switchTab('productos', '${subcatRedirect}')" class="w-full aspect-square object-cover rounded-xl mb-3 cursor-pointer">
                     <div class="flex-1">
                         <h3 class="font-bold text-wire-text text-base">${item.name}</h3>
                         <p class="text-xs text-wire-graytext leading-tight mt-1 mb-2">${item.desc}</p>
                     </div>
                     <div class="flex items-center justify-between gap-2 mt-2">
                         ${priceBadge(item.price, "text-lg")}
-                        <button onclick="addToCart(${item.id})" class="btn-add text-xs font-bold py-2 px-4 rounded-full transition shadow-xs">
-                            Agregar
-                        </button>
+                        <button onclick="addToCart(${item.id})" class="btn-add text-xs font-bold py-2 px-4 rounded-full transition shadow-xs">Agregar</button>
                     </div>
                 `;
                 container.appendChild(card);
 
-                // Dots
                 const dot = document.createElement('button');
                 dot.className = "w-2 h-2 rounded-full bg-wire-text/30 transition-all";
+                dot.setAttribute('aria-label', `Ir a la diapositiva ${index + 1}`);
                 if (index === 0) dot.classList.add('bg-wire-yellow', 'w-4');
                 dot.onclick = () => scrollToCarouselItem(container, index);
                 dotsContainer.appendChild(dot);
             });
+
+            attachDotsScrollSync(container, dotsContainer);
         }
 
         function renderMuroCarousel(containerId, images, dotsId) {
-            const container = document.querySelector(`#${containerId} > div`);
+            const wrapper = document.getElementById(containerId);
+            if (!wrapper) return;
+            const container = wrapper.querySelector(':scope > div');
             const dotsContainer = document.getElementById(dotsId);
+            if (!container || !dotsContainer) return;
+
             container.innerHTML = '';
             dotsContainer.innerHTML = '';
 
@@ -543,7 +670,7 @@
                 const card = document.createElement('div');
                 card.className = "flex-shrink-0 w-[80%] sm:w-[45%] md:w-[31%] snap-start relative rounded-2xl overflow-hidden shadow-sm group";
                 card.innerHTML = `
-                    <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full aspect-[4/3] object-cover" alt="Foto de cliente">
+                    <img src="${imgSrc}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full aspect-[4/3] object-cover" alt="Foto de cliente">
                     <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
                         <p class="text-white text-sm font-semibold flex items-center gap-2">
                             <i class="fa-solid fa-heart text-wire-salmon"></i> Me encanta este lugar
@@ -554,20 +681,49 @@
 
                 const dot = document.createElement('button');
                 dot.className = "w-2 h-2 rounded-full bg-wire-text/30 transition-all";
+                dot.setAttribute('aria-label', `Ir a la diapositiva ${index + 1}`);
                 if (index === 0) dot.classList.add('bg-wire-yellow', 'w-4');
                 dot.onclick = () => scrollToCarouselItem(container, index);
                 dotsContainer.appendChild(dot);
             });
+
+            attachDotsScrollSync(container, dotsContainer);
+        }
+
+        function attachDotsScrollSync(container, dotsContainer) {
+            let ticking = false;
+            container.addEventListener('scroll', () => {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => {
+                    ticking = false;
+                    const children = Array.from(container.children);
+                    if (!children.length) return;
+                    const scrollLeft = container.scrollLeft;
+                    let closest = 0;
+                    let minDist = Infinity;
+                    children.forEach((child, i) => {
+                        const dist = Math.abs(child.offsetLeft - container.offsetLeft - scrollLeft);
+                        if (dist < minDist) { minDist = dist; closest = i; }
+                    });
+                    dotsContainer.querySelectorAll('button').forEach((dot, i) => {
+                        dot.classList.toggle('bg-wire-yellow', i === closest);
+                        dot.classList.toggle('w-4', i === closest);
+                        dot.classList.toggle('bg-wire-text/30', i !== closest);
+                    });
+                });
+            }, { passive: true });
         }
 
         function renderMuroGrid(images) {
             const grid = document.getElementById('muro-grid');
+            if (!grid) return;
             grid.innerHTML = '';
             images.forEach(imgSrc => {
                 const div = document.createElement('div');
                 div.className = "relative rounded-xl overflow-hidden shadow-sm group";
                 div.innerHTML = `
-                    <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover aspect-square" alt="Foto de cliente">
+                    <img src="${imgSrc}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover aspect-square" alt="Foto de cliente">
                     <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center opacity-0 group-hover:opacity-100">
                         <i class="fa-solid fa-expand text-white text-xl"></i>
                     </div>
@@ -577,18 +733,24 @@
         }
 
         function moveCarousel(containerId, direction) {
-            const container = document.querySelector(`#${containerId} > div`);
-            const cardWidth = container.querySelector('div').offsetWidth + 20; // card + gap
+            const wrapper = document.getElementById(containerId);
+            if (!wrapper) return;
+            const container = wrapper.querySelector(':scope > div');
+            if (!container) return;
+            const firstCard = container.firstElementChild;
+            if (!firstCard) return;
+            const cardWidth = firstCard.offsetWidth + 20;
             container.scrollBy({ left: cardWidth * direction, behavior: 'smooth' });
         }
 
         function scrollToCarouselItem(container, index) {
             const card = container.children[index];
-            container.scrollTo({ left: card.offsetLeft - container.offsetLeft - 16, behavior: 'smooth' });
+            if (!card) return;
+            container.scrollTo({ left: card.offsetLeft - container.offsetLeft, behavior: 'smooth' });
         }
 
-        // ============= RENDERIZADO PRODUCTOS =============
-        function filterSubcategory(subcat, btn) {
+        // ============= PRODUCTOS =============
+        function filterSubcategory(subcat) {
             currentSubcategory = subcat;
             updateSubcatButtons();
             renderProducts();
@@ -596,18 +758,17 @@
 
         function updateSubcatButtons() {
             document.querySelectorAll('.subcat-btn').forEach(b => {
-                b.classList.remove('bg-wire-yellow', 'text-white');
-                b.classList.add('bg-wire-white', 'text-wire-graytext');
+                const isActive = b.dataset.subcat === currentSubcategory;
+                b.classList.toggle('bg-wire-yellow', isActive);
+                b.classList.toggle('text-white', isActive);
+                b.classList.toggle('bg-wire-white', !isActive);
+                b.classList.toggle('text-wire-graytext', !isActive);
             });
-            const activeBtn = [...document.querySelectorAll('.subcat-btn')].find(b => b.textContent.toLowerCase().includes(currentSubcategory.replace('-', ' ')));
-            if(activeBtn) {
-                activeBtn.classList.add('bg-wire-yellow', 'text-white');
-                activeBtn.classList.remove('bg-wire-white', 'text-wire-graytext');
-            }
         }
 
         function renderProducts() {
             const grid = document.getElementById('products-grid');
+            if (!grid) return;
             grid.innerHTML = '';
 
             const filtered = PRODUCTS.filter(p => p.category === currentSubcategory);
@@ -622,7 +783,7 @@
                 card.className = "bg-wire-card rounded-2xl p-3 shadow-sm border border-wire-text/10 flex flex-col transition hover:shadow-md";
                 card.innerHTML = `
                     <div class="w-full aspect-square rounded-xl mb-3 border border-wire-text/10 overflow-hidden">
-                        <img src="${prod.img}" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${prod.name}" class="w-full h-full object-cover hover:scale-105 transition">
+                        <img src="${prod.img}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${prod.name}" class="w-full h-full object-cover hover:scale-105 transition">
                     </div>
                     <div class="flex-1">
                         <h3 class="font-bold text-wire-text text-sm sm:text-base">${prod.name}</h3>
@@ -630,27 +791,23 @@
                     </div>
                     <div class="flex items-center justify-between gap-2 mt-2">
                         ${priceBadge(prod.price, "text-sm sm:text-lg")}
-                        <button onclick="addToCart(${prod.id})" class="btn-add text-xs font-bold py-2 px-3 rounded-full transition shadow-xs">
-                            Agregar
-                        </button>
+                        <button onclick="addToCart(${prod.id})" class="btn-add text-xs font-bold py-2 px-3 rounded-full transition shadow-xs">Agregar</button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // ============= MANEJO CARRITO =============
+        // ============= CARRITO =============
         function addToCart(prodId) {
             const prod = PRODUCTS.find(p => p.id === prodId);
             if (!prod) return;
 
             const existing = cart.find(item => item.id === prodId);
-            if (existing) {
-                existing.qty++;
-            } else {
-                cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1, img: prod.img });
-            }
+            if (existing) existing.qty++;
+            else cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1, img: prod.img });
 
+            saveCart();
             showToast(`Añadido: ${prod.name}`);
             renderCart();
         }
@@ -659,6 +816,7 @@
             const container = document.getElementById('cart-items-container');
             const badge = document.getElementById('cart-badge-count');
             const totalElem = document.getElementById('cart-total-price');
+            if (!container || !badge || !totalElem) return;
 
             const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
             badge.innerText = totalCount;
@@ -678,20 +836,19 @@
                 itemRow.className = "bg-wire-white rounded-2xl p-3 shadow-sm border border-wire-text/10 flex items-center gap-4";
                 itemRow.innerHTML = `
                     <div class="w-16 h-16 rounded-xl overflow-hidden border border-wire-text/10 flex-shrink-0">
-                        <img src="${item.img}" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover" alt="${item.name}">
+                        <img src="${item.img}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackImg}';" class="w-full h-full object-cover" alt="${item.name}">
                     </div>
                     <div class="flex-1">
                         <h4 class="font-bold text-base text-wire-text">${item.name}</h4>
                         ${priceBadge(item.price, "text-xs mt-1")}
                     </div>
-
                     <div class="flex items-center gap-3">
                         <div class="flex items-center bg-wire-bg rounded-full px-2 py-1 border border-wire-text/10">
-                            <button onclick="updateQty(${index}, -1)" class="w-6 h-6 rounded-full bg-wire-text/10 text-wire-text font-bold text-xs flex items-center justify-center hover:bg-wire-text/20">-</button>
+                            <button onclick="updateQty(${index}, -1)" aria-label="Quitar uno" class="w-6 h-6 rounded-full bg-wire-text/10 text-wire-text font-bold text-xs flex items-center justify-center hover:bg-wire-text/20">-</button>
                             <span class="px-3 font-bold text-sm text-wire-text">${item.qty}</span>
-                            <button onclick="updateQty(${index}, 1)" class="w-6 h-6 rounded-full bg-wire-yellow text-white font-bold text-xs flex items-center justify-center hover:bg-wire-yellow-hover">+</button>
+                            <button onclick="updateQty(${index}, 1)" aria-label="Añadir uno" class="w-6 h-6 rounded-full bg-wire-yellow text-white font-bold text-xs flex items-center justify-center hover:bg-wire-yellow-hover">+</button>
                         </div>
-                        <button onclick="removeItem(${index})" class="text-red-400 hover:text-red-600 p-1">
+                        <button onclick="removeItem(${index})" aria-label="Eliminar producto" class="text-red-400 hover:text-red-600 p-1">
                             <i class="fa-solid fa-trash-can text-sm"></i>
                         </button>
                     </div>
@@ -701,60 +858,115 @@
         }
 
         function updateQty(index, change) {
-            if (cart[index]) {
-                cart[index].qty += change;
-                if (cart[index].qty <= 0) cart.splice(index, 1);
-                renderCart();
-            }
+            if (!cart[index]) return;
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            saveCart();
+            renderCart();
         }
 
         function removeItem(index) {
             cart.splice(index, 1);
+            saveCart();
             renderCart();
         }
 
         function clearCart() {
+            if (cart.length === 0) { showToast('El carrito ya está vacío'); return; }
             cart = [];
+            saveCart();
             renderCart();
             showToast('Carrito vaciado');
         }
 
-        function checkoutModal() {
-            if (cart.length === 0) {
-                showToast('Tu carrito está vacío');
-                return;
-            }
-            showToast('¡Pedido realizado con éxito!');
+        function confirmOrder() {
+            if (cart.length === 0) { showToast('Tu carrito está vacío'); return; }
+            const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            const count = cart.reduce((acc, item) => acc + item.qty, 0);
+            showToast(`¡Pedido confirmado! ${count} artículo(s) por $${total.toLocaleString()}`);
             cart = [];
+            saveCart();
             renderCart();
         }
 
-        // ============= UTILIDADES =============
+        // ============= PERFIL =============
         function saveProfile() {
-            showToast('Perfil actualizado correctamente');
+            const profile = {
+                name: document.getElementById('profile-name')?.value || '',
+                phone: document.getElementById('profile-phone')?.value || '',
+                address: document.getElementById('profile-address')?.value || ''
+            };
+            try { localStorage.setItem(STORAGE_KEYS.profile, JSON.stringify(profile)); } catch (e) {}
+            showToast('Perfil guardado correctamente');
         }
 
+        // ============= CONTACTO =============
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+            const nombre = (data.get('nombre') || '').trim();
+            if (!nombre) { showToast('Por favor escribe tu nombre'); return; }
+            showToast(`¡Gracias ${nombre}! Te contactaremos pronto.`);
+            form.reset();
+        }
+
+        // ============= TOAST =============
+        let toastTimer = null;
         function showToast(msg) {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
             toastMsg.innerText = msg;
 
-            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
-            toast.classList.add('opacity-100', 'translate-y-0');
+            toast.classList.remove('hidden-toast', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
 
-            setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
-            }, 2500);
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('hidden-toast', 'opacity-0', 'pointer-events-none');
+                toast.classList.remove('opacity-100');
+            }, 2800);
+        }
+
+        // ============= YOUTUBE =============
+        function initYouTubeWidget() {
+            const container = document.getElementById('yt-thumbnails');
+            const mainFrame = document.getElementById('yt-active-frame');
+            if (!container || !mainFrame) return;
+
+            container.innerHTML = '';
+
+            YOUTUBE_VIDEOS.forEach((video, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'yt-thumb-item' + (index === 0 ? ' active' : '');
+                thumb.innerHTML = `
+                    <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg"
+                         alt="${video.title}"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='https://placehold.co/480x270/252525/ffffff?text=Video';">
+                    <p class="yt-thumb-title">${video.title}</p>
+                `;
+                thumb.addEventListener('click', () => {
+                    mainFrame.src = 'https://www.youtube.com/embed/' + video.id + '?autoplay=1';
+                    mainFrame.setAttribute('title', video.title);
+                    document.querySelectorAll('.yt-thumb-item').forEach(el => el.classList.remove('active'));
+                    thumb.classList.add('active');
+                });
+                container.appendChild(thumb);
+            });
         }
 
         // ============= INICIALIZACIÓN =============
-        updateThemeIcon(); // Asegura que el ícono (sol/luna) coincida con el tema activo
-
         document.addEventListener('DOMContentLoaded', () => {
+            updateThemeIcon();
+            loadCart();
+            loadProfile();
             renderCarousels();
             renderProducts();
             renderCart();
+            initYouTubeWidget();
+            switchTab('home');
         });
     </script>
 </body>
